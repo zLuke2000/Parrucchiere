@@ -1,0 +1,33 @@
+.normal-background {
+    -fx-background-color: #E8DCCA;
+    -fx-background-radius: 8;
+}
+.info-background {
+    -fx-background-color: #CADBE8;
+    -fx-background-radius: 8;
+}
+.warning-background {
+    -fx-background-color: #E8E6CA;
+    -fx-background-radius: 8;
+}
+.error-background {
+    -fx-background-color: #E8CACA;
+    -fx-background-radius: 8;
+}
+.success-background {
+    -fx-background-color: #CDE8CA;
+    -fx-background-radius: 8;
+}
+.icona-rossa:hover {
+    -fx-icon-color: red;
+}
+
+.annulla-appuntamento:hover {
+    -fx-icon-color: red;
+}
+.attenzione-appuntamento:hover {
+    -fx-icon-color: yellow;
+}
+.completa-appuntamento:hover {
+    -fx-icon-color: green;
+}

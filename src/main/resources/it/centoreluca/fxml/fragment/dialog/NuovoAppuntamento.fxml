@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import java.net.URL?>
+<AnchorPane prefHeight="300.0" prefWidth="400.0" styleClass="normal-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.calendario.CNuovoAppuntamento">
+   <Label fx:id="l_info" alignment="CENTER" text="template" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <Label layoutY="52.0" text="Nome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="52.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tf_nome" promptText="Inserire nome" styleClass="default-text-field" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="49.0" />
+   <Label layoutY="93.0" text="Cognome:" AnchorPane.leftAnchor="32.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tf_cognome" promptText="Inserire cognome" styleClass="default-text-field" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="90.0" />
+   <Label layoutY="134.0" text="Ora: " AnchorPane.leftAnchor="32.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tf_ora" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#controlloRealtime" prefWidth="40.0" styleClass="default-text-field" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="131.0" />
+   <Label alignment="CENTER" layoutX="156.0" layoutY="136.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="8.0" text=":" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="131.0" />
+   <TextField fx:id="tf_minuto" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#controlloRealtime" prefWidth="40.0" styleClass="default-text-field" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="131.0" />
+   <Button mnemonicParsing="false" onAction="#conferma" styleClass="default-button" text="CONFERMA" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+   <Button contentDisplay="TOP" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#mostraRecenti" prefHeight="66.0" styleClass="default-button" text="recenti" AnchorPane.leftAnchor="302.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="49.0">
+      <graphic>
+         <FontIcon iconLiteral="mdi2a-account-clock-outline" iconSize="32" />
+      </graphic></Button>
+   <FontIcon iconLiteral="mdi2c-close-thick" iconSize="24" layoutX="368.0" layoutY="26.0" onMouseClicked="#chiudiDialog" styleClass="icona-rossa" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="9.0" />
+   <TextArea fx:id="ta_note" prefHeight="84.0" prefWidth="336.0" promptText="Inserire eventuali note (opzionale)" styleClass="default-text-area" wrapText="true" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="172.0" />
+   <stylesheets>
+      <URL value="@../../../style/style.css" />
+      <URL value="@../../../style/dialog.css" />
+   </stylesheets>
+</AnchorPane>

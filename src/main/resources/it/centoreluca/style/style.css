@@ -1,0 +1,74 @@
+.default-background {
+    -fx-background-color: gray;
+    -fx-background-radius: 8;
+}
+
+.transparent-background {
+    -fx-background-color: transparent;
+}
+
+.opaco-20 {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4;
+}
+
+.bordo {
+    -fx-border-color: lightgray;
+    -fx-border-radius: 4;
+}
+
+.field-error {
+	-fx-border-color: red;
+	-fx-border-radius: 5;
+	-fx-border-width: 1.5;
+}
+
+.field-valid {
+	-fx-border-color: green;
+	-fx-border-radius: 5;
+	-fx-border-width: 1.5;
+}
+
+.tooltip-error {
+	-fx-border-color: red;
+	-fx-border-radius: 10;
+	-fx-border-width: 1.5;
+	-fx-background-color: white;
+	-fx-background-radius: 10;
+	-fx-font-size: 12;
+	-fx-text-fill: black;
+}
+
+.default-text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 4;
+    -fx-text-fill: #323232;
+    -fx-prompt-text-fill: #909090;
+}
+
+.default-text-area {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 4;
+    -fx-control-inner-background: transparent;
+    -fx-text-fill: #323232;
+    -fx-prompt-text-fill: #909090;
+}
+.default-text-area:focused {
+    -fx-highlight-fill: transparent;
+    -fx-background-insets: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-box-border: transparent;
+    -fx-border-width: -1;
+}
+
+.default-button {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 4;
+}
+
+.default-button: hover {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 4;
+}

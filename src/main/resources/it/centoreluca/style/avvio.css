@@ -1,0 +1,37 @@
+.bordo-menu {
+    -fx-border-color: transparent transparent lightgrey lightgrey;
+    -fx-border-radius: 0 0 0 8;
+}
+.bordo-menu-selezione {
+    -fx-border-color: lightgrey transparent lightgrey lightgrey;
+    -fx-border-radius: 8 0 0 8;
+}
+/* pulsante riduci ad icona */
+.riduci-a-icona {
+	-fx-background-color: transparent;
+}
+.riduci-a-icona: hover {
+	-fx-background-color: rgba(255, 255, 255, 0.2);
+	-fx-background-radius: 0 0 0 8;
+}
+/* pulsante schermo intero on/off */
+.schermo-intero {
+	-fx-background-color: transparent;
+}
+.schermo-intero: hover {
+	-fx-background-color: rgba(255, 255, 255, 0.2);
+	-fx-background-radius: 0 0 0 0;
+}
+/* pulsante chiudi */
+.chiudi {
+	-fx-background-color: transparent;
+}
+.chiudi: hover {
+	-fx-background-color: rgba(255, 0, 0, 0.6);
+	-fx-background-radius: 0 8 0 0;
+}
+/* pulsante seleziona calendario */
+.pulsante-calendario {
+	-fx-background-color: rgba(255, 255, 255, 0.2);
+	-fx-background-radius: 8;
+}

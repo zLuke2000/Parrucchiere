@@ -1,0 +1,16 @@
+.default-button {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4;
+}
+.default-button: hover {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 4;
+}
+.green-button {
+    -fx-background-color: #519657;
+    -fx-background-radius: 4;
+}
+.green-button: hover {
+    -fx-background-color: #81c784;
+    -fx-background-radius: 4;
+}
