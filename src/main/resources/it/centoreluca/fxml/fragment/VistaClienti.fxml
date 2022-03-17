@@ -1,29 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="transparent-background" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.clienti.CVistaClienti">
-   <VBox layoutX="255.0" layoutY="160.0" maxWidth="-Infinity" styleClass="bordo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="0.0"/>
-   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" styleClass="bordo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.clienti.CVistaClienti">
+   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" styleClass="bordo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="32.0">
+      <VBox fx:id="vb_container" spacing="8.0" styleClass="transparent-background">
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
+   </ScrollPane>
+   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="400.0" styleClass="bordo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Label alignment="CENTER" text="Nuovo cliente" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
          <font>
-            <Font name="System Bold" size="18.0"/>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label text="Nome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="52.0">
+      <Label text="Nome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="53.0">
          <font>
-            <Font size="14.0"/>
+            <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_nome" promptText="Inserire nome" styleClass="default-text-field" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="49.0"/>
-      <Label text="Cognome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="92.0">
+      <TextField fx:id="tf_nome" onKeyTyped="#realtimeCheck" promptText="Inserire nome" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="49.0" />
+      <Label text="Cognome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="94.0">
          <font>
-            <Font size="14.0"/>
+            <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_cognome" promptText="Inserire cognome" styleClass="default-text-field" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="90.0"/>
-      <Button mnemonicParsing="false" onAction="#conferma" styleClass="default-button" text="CONFERMA" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"/>
-      <TextArea fx:id="ta_note" prefHeight="50.0" promptText="Inserire eventuali note (opzionale)" styleClass="default-text-area" wrapText="true" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0"/>
+      <TextField fx:id="tf_cognome" onKeyTyped="#realtimeCheck" promptText="Inserire cognome" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="90.0" />
+      <Button onAction="#conferma" styleClass="default-button" text="CONFERMA" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+      <TextArea fx:id="ta_note" onKeyTyped="#realtimeCheck" prefHeight="50.0" promptText="Inserire note (opzionale)" styleClass="default-text-area" wrapText="true" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+      <Label text="Data di nascita:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="135.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label text="Numero cellulare:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="195.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_numeroCellulare" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="191.0" />
+      <Label text="Numero fisso:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="236.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_numeroFisso" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="232.0" />
+      <Label text="E-mail:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="281.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="172.0" />
+      <TextField fx:id="tf_eMail" onKeyTyped="#realtimeCheck" promptText="Inserire e-mail" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="273.0" />
+      <HBox spacing="8.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="131.0">
+         <TextField fx:id="tf_dataG" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="GG" styleClass="default-text-field" />
+         <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="-" />
+         <TextField fx:id="tf_dataM" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="MM" styleClass="default-text-field" />
+         <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="-" />
+         <TextField fx:id="tf_dataA" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="AAAA" styleClass="default-text-field" />
+      </HBox>
    </AnchorPane>
+   <Label fx:id="l_registrazioneOk" alignment="CENTER" prefHeight="20.0" prefWidth="400.0" styleClass="opaco-20" text="template" textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="458.0">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tf_ricerca" onKeyTyped="#realtimeCheck" promptText="Cerca cliente (almeno due lettere)" styleClass="default-text-field" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="0.0" />
 </AnchorPane>

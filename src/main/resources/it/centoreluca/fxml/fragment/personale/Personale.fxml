@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefWidth="1280.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.personale.CPersonale">
+     <Label fx:id="l_username" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" text="template" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="8.0">
+         <font>
+             <Font name="System Bold" size="14.0" />
+         </font>
+     </Label>
+   <Button onMouseClicked="#elimina" styleClass="default-button" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+      <graphic>
+           <FontIcon iconLiteral="mdi2t-trash-can-outline" iconSize="25" styleClass="icona-rossa" />
+      </graphic>
+   </Button>
+   <Button onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="16.0">
+      <graphic>
+         <FontIcon iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-gialla" />
+      </graphic>
+   </Button>
+    <HBox spacing="8.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+        <Label fx:id="l_cognome" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" text="template" />
+        <Label fx:id="l_nome" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" text="template" />
+    </HBox>
+    <Label fx:id="l_note" alignment="TOP_LEFT" prefWidth="400.0" text="template" wrapText="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="8.0" />
+   <stylesheets>
+      <URL value="@../../../style/style.css" />
+      <URL value="@../../../style/icone.css" />
+   </stylesheets>
+</AnchorPane>
