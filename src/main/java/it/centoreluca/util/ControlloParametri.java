@@ -1,8 +1,11 @@
 package it.centoreluca.util;
 
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +23,18 @@ public class ControlloParametri {
             instance = new ControlloParametri();
         }
         return instance;
+    }
+
+    public boolean testoSemplice(TextInputControl tic, int minChar, int maxChar) {
+        rPattern = Pattern.compile("[\\w\\d\\s]{" + minChar + "," + maxChar + "}");
+        rMatcher = rPattern.matcher(tic.getText().trim());
+        if(rMatcher.matches()) {
+            cssHelper.toValid(tic);
+            return true;
+        } else {
+            cssHelper.toError(tic, new Tooltip("immettere da " + minChar + " a " + maxChar + " caratteri"));
+            return false;
+        }
     }
 
     public boolean testoSempliceConNumeri(TextInputControl tic, int minChar, int maxChar) {
@@ -96,5 +111,54 @@ public class ControlloParametri {
             cssHelper.toError(minuto, new Tooltip("Immettere solo numeri"));
         }
         return false;
+    }
+
+    public String toTitleCase(String input) {
+        StringBuilder titleCase = new StringBuilder(input.length());
+        boolean nextTitleCase = true;
+
+        for (char c : input.toLowerCase().toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
+                nextTitleCase = true;
+            } else if (nextTitleCase) {
+                c = Character.toTitleCase(c);
+                nextTitleCase = false;
+            }
+            titleCase.append(c);
+        }
+        return titleCase.toString();
+    }
+
+    public Calendar data(TextField giorno, TextField mese, TextField anno) {
+        if(numeri(giorno, 1, 2) & (numeri(mese, 1, 2)) & (numeri(anno, 4, 4))) {
+            Calendar data = new GregorianCalendar(Integer.parseInt(anno.getText().trim()), Integer.parseInt(mese.getText().trim()) - 1, Integer.parseInt(giorno.getText().trim()));
+            data.setLenient(false);
+            try {
+                data.getTime();
+                return data;
+            } catch (Exception e) {
+                cssHelper.toError(giorno, new Tooltip("Data non valida"));
+                cssHelper.toError(mese, new Tooltip("Data non valida"));
+                cssHelper.toError(anno, new Tooltip("Data non valida"));
+            }
+        }
+        return null;
+    }
+
+    public boolean email(TextField email) {
+        if(email.getText().trim().length() <= 0) {
+            cssHelper.toError(email, new Tooltip("Inserire email"));
+            return false;
+        }  else {
+            rPattern = Pattern.compile("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$");
+            rMatcher = rPattern.matcher(email.getText().trim());
+            if(rMatcher.matches()) {
+                cssHelper.toValid(email);
+                return true;
+            } else {
+                cssHelper.toError(email, new Tooltip("Email non valida"));
+                return false;
+            }
+        }
     }
 }

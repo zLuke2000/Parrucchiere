@@ -1,4 +1,4 @@
-package it.centoreluca.controller.calendario;
+package it.centoreluca.controller.dialog;
 
 import it.centoreluca.controller.Controller;
 import it.centoreluca.database.Database;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CClientiRecenti extends Controller {
+public class CClientiRecenti extends CDialog {
 
     @FXML private Button b_seleziona1;
     @FXML private Button b_seleziona2;
@@ -27,7 +27,7 @@ public class CClientiRecenti extends Controller {
     @FXML private Button b_seleziona10;
 
     private Stage stage;
-    private CNuovoAppuntamento parent;
+    private CNuovoAppS parent;
     private final Database db = Database.getInstance();
     private final List<Button> listaBottoni = new ArrayList<>();
     private List<Cliente> cr;
@@ -48,8 +48,8 @@ public class CClientiRecenti extends Controller {
 
     public void impostaParametri(Stage stage, Controller parent, Calendar data) {
         this.stage = stage;
-        this.parent = (CNuovoAppuntamento) parent;
-        Result rs = db.leggiRecenti(10);
+        this.parent = (CNuovoAppS) parent;
+        Result rs = db.leggiClientiFrequenti(10);
         if(rs.getResult()) {
             cr = rs.getList(Cliente.class);
             for (int i = 0; i < 10; i++) {

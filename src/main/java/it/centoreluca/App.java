@@ -1,6 +1,5 @@
 package it.centoreluca;
 
-import it.centoreluca.database.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +16,9 @@ import java.util.Objects;
 public class App extends Application {
 
     public static Stage stage;
-    public static Database db = Database.getInstance();
     private Double xOffset;
     private Double yOffset;
+    private boolean drag;
     private final Double bordo = 128.0;
 
     @Override
@@ -45,10 +44,13 @@ public class App extends Application {
         scene.setOnMousePressed(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
             yOffset = mouseEvent.getSceneY();
+            drag = yOffset < 45;
         });
         scene.setOnMouseDragged(mouseEvent -> {
-            stage.setX(mouseEvent.getScreenX() - xOffset);
-            stage.setY(mouseEvent.getScreenY() - yOffset);
+            if(drag) {
+                stage.setX(mouseEvent.getScreenX() - xOffset);
+                stage.setY(mouseEvent.getScreenY() - yOffset);
+            }
         });
     }
 

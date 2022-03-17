@@ -1,7 +1,8 @@
-package it.centoreluca.controller.calendario;
+package it.centoreluca.controller.calendario.settimanale;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
+import it.centoreluca.controller.dialog.CNuovoAppS;
 import it.centoreluca.database.Database;
 import it.centoreluca.enumerator.Giorni;
 import it.centoreluca.models.Appuntamento;
@@ -22,6 +23,7 @@ public class CColonna extends Controller {
 
     @FXML private VBox vb_container;
     @FXML private Label l_giorno;
+
     private final DialogHelper dh = DialogHelper.getInstance();
     private final Database db = Database.getInstance();
     private final Orario ora = Orario.getInstance();
@@ -39,9 +41,9 @@ public class CColonna extends Controller {
 
     public void caricaAppuntamenti() {
         vb_container.getChildren().clear();
-        Result rs = db.leggiAppuntamenti(data);
+        Result rs = db.leggiAppuntamenti(data, -1);
         for (Appuntamento a: rs.getList(Appuntamento.class)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendario/Appuntamento.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendarioS/Appuntamento.fxml"));
             try {
                 AnchorPane ap = fxmlLoader.load();
                 vb_container.getChildren().add(ap);
@@ -56,6 +58,7 @@ public class CColonna extends Controller {
     }
 
     public void nuovoAppuntamento() {
-        dh.newDialog("fxml/fragment/dialog/NuovoAppuntamento", null, this, data);
+        CNuovoAppS controller = (CNuovoAppS) dh.newDialog("fxml/fragment/dialog/NuovoAppuntamento", null, this, data, null);
+        controller.impostaData(data);
     }
 }

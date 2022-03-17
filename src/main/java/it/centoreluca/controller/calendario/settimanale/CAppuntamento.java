@@ -1,4 +1,4 @@
-package it.centoreluca.controller.calendario;
+package it.centoreluca.controller.calendario.settimanale;
 
 import it.centoreluca.controller.Controller;
 import it.centoreluca.database.Database;

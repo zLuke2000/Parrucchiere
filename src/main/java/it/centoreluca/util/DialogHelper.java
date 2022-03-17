@@ -2,6 +2,7 @@ package it.centoreluca.util;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
+import it.centoreluca.models.Personale;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ public class DialogHelper {
     private Double xOffset;
     private Double yOffset;
     private Stage stage;
+    private Controller c;
     private static DialogHelper instance = null;
 
     private DialogHelper() {}
@@ -33,7 +35,7 @@ public class DialogHelper {
         return instance;
     }
 
-    public void newDialog(String fxmlName, Pane rootPane, Controller parentController, Calendar data) {
+    public Controller newDialog(String fxmlName, Pane rootPane, Controller parentController, Calendar data, Personale personale) {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
         try {
             parent = fxmlLoader.load();
@@ -42,8 +44,9 @@ public class DialogHelper {
         }
         Scene scene = new Scene(parent);
         stage = new Stage();
-        Controller c = fxmlLoader.getController();
-        c.impostaParametri(stage, parentController, data);
+        c = fxmlLoader.getController();
+        c.impostaParametri(stage, parentController);
+        c.impostaUlterioriParametri(data, personale);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
@@ -67,6 +70,7 @@ public class DialogHelper {
         });
 
         stage.showAndWait();
+        return c;
     }
 
 }

@@ -24,7 +24,7 @@ public class CssHelper {
         c.getStyleClass().add("field-error");
         if(tooltip != null) {
             tooltip.getStyleClass().add("tooltip-error");
-            tooltip.setShowDelay(new Duration(0));
+            tooltip.setShowDelay(Duration.ZERO);
             c.setTooltip(tooltip);
         }
     }

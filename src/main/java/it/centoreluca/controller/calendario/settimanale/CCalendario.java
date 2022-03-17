@@ -1,4 +1,4 @@
-package it.centoreluca.controller.calendario;
+package it.centoreluca.controller.calendario.settimanale;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
@@ -14,10 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class CCalendario extends Controller {
 
@@ -30,7 +28,6 @@ public class CCalendario extends Controller {
 
     private final Calendar data = new GregorianCalendar();
     private final Calendar dataTemp = new GregorianCalendar();
-    private final List<CColonna> colonne = new ArrayList<>();
 
     @FXML
     private void initialize() {
@@ -63,19 +60,18 @@ public class CCalendario extends Controller {
     private void caricaFragment() {
         rimuoviFragment();
         for (int i = 0; i < 7; i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendario/Colonna.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendarioS/Colonna.fxml"));
             try {
                 AnchorPane ap = fxmlLoader.load();
                 hb_container.getChildren().add(ap);
                 /* ANIMAZIONE */
-                FadeTransition ft = new FadeTransition(new Duration(250), ap);
+                FadeTransition ft = new FadeTransition(Duration.millis(250), ap);
                 ft.setFromValue(0);
                 ft.setToValue(1);
                 ft.play();
                 /* FINE ANIMAZIONE */
                 CColonna colonnaController = fxmlLoader.getController();
                 colonnaController.impostaContenuto(dataTemp);
-                colonne.add(colonnaController);
                 dataTemp.add(Calendar.DAY_OF_YEAR, 1);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -84,7 +80,6 @@ public class CCalendario extends Controller {
     }
 
     private void rimuoviFragment() {
-        colonne.clear();
         hb_container.getChildren().clear();
     }
 

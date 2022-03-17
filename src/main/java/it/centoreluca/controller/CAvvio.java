@@ -19,13 +19,14 @@ public class CAvvio extends Controller {
     @FXML private AnchorPane p_container;
     @FXML private FontIcon fi_schermoInteroOn;
     @FXML private FontIcon fi_schermoInteroOff;
-    @FXML private Button b_menuCalendario;
+    @FXML private Button b_menuCalendario1;
+    @FXML private Button b_menuCalendario2;
     @FXML private Button b_menuClienti;
-    @FXML private Button b_menuGenerico1;
-    @FXML private Button b_menuGenerico2;
-    @FXML private Button b_menuGenerico3;
+    @FXML private Button b_menuServizi;
     @FXML private Button b_menuPersonale;
+    @FXML private Button b_menuGenerico;
     @FXML private Label l_orologio;
+    @FXML private Label l_titolo;
 
     private final Stage stage = App.stage;
     private final Double defaultWidth = stage.getWidth();
@@ -34,7 +35,8 @@ public class CAvvio extends Controller {
 
     @FXML
     private void initialize() {
-        loadDashboard("Calendario");
+        loadDashboard("CalendarioGiorno");
+        l_titolo.setText("AGENDA");
         ora.impostaEtichetta(l_orologio);
     }
 
@@ -55,18 +57,24 @@ public class CAvvio extends Controller {
 
     @FXML
     public void selettoreMenu(ActionEvent ae) {
-        if(ae.getSource().equals(b_menuCalendario)) {
-            loadDashboard("Calendario");
+        if(ae.getSource().equals(b_menuCalendario1)) {
+            loadDashboard("CalendarioGiorno");
+            l_titolo.setText("AGENDA");
+        } else if(ae.getSource().equals(b_menuCalendario2)) {
+            loadDashboard("CalendarioSettimana");
+            l_titolo.setText("CALENDARIO");
         } else if(ae.getSource().equals(b_menuClienti)) {
             loadDashboard("VistaClienti");
-        } else if(ae.getSource().equals(b_menuGenerico1)) {
-            loadDashboard("Menu1");
-        } else if(ae.getSource().equals(b_menuGenerico2)) {
-            loadDashboard("Menu2");
-        } else if(ae.getSource().equals(b_menuGenerico3)) {
-            loadDashboard("Menu3");
+            l_titolo.setText("CLIENTI");
+        } else if(ae.getSource().equals(b_menuServizi)) {
+            loadDashboard("VistaServizi");
+            l_titolo.setText("SERVIZI");
         } else if(ae.getSource().equals(b_menuPersonale)) {
             loadDashboard("VistaPersonale");
+            l_titolo.setText("PERSONALE");
+        } else if(ae.getSource().equals(b_menuGenerico)) {
+            l_titolo.setText("MENU");
+            loadDashboard("Menu");
         }
     }
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DBHelper {
 
     private final static String protocol = "jdbc:postgresql://";
-    private final static String host = "192.168.1.50/";
+    private final static String host = "localhost/";
     private final static String resource = "parrucchiere";
     private final static String url = protocol + host + resource;
 
