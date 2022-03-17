@@ -18,16 +18,3 @@
     -fx-background-color: #CDE8CA;
     -fx-background-radius: 8;
 }
-.icona-rossa:hover {
-    -fx-icon-color: red;
-}
-
-.annulla-appuntamento:hover {
-    -fx-icon-color: red;
-}
-.attenzione-appuntamento:hover {
-    -fx-icon-color: yellow;
-}
-.completa-appuntamento:hover {
-    -fx-icon-color: green;
-}

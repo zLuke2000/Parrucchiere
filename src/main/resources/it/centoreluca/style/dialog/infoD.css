@@ -1,0 +1,23 @@
+/* MAIN PANE */
+.root {
+	-fx-background-color: #85C1E9;
+	-fx-background-radius: 20;
+}
+
+/* DEFAULT BG */
+.default-background {
+	-fx-background-color: #85C1E9;
+	-fx-background-radius: 20;
+}
+
+/* BUTTON */
+.button {
+	-fx-background-color: #AED6F1;
+	-fx-background-radius: 30;
+}
+
+/* TEXT FIELD */
+.text-field {
+	-fx-background-color: #AED6F1;
+	-fx-background-radius: 5;
+}

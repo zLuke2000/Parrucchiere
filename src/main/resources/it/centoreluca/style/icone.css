@@ -1,0 +1,10 @@
+/* FONT ICON HOVER */
+.icona-rossa:hover {
+    -fx-icon-color: red;
+}
+.icona-gialla:hover {
+    -fx-icon-color: goldenrod;
+}
+.icona-verde:hover {
+    -fx-icon-color: green;
+}
