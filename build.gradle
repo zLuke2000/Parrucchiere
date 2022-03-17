@@ -21,7 +21,9 @@ javafx {
 }
 
 dependencies {
-    implementation 'org.postgresql:postgresql:42.3.2'
+    implementation 'org.postgresql:postgresql:42.3.3'
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.0'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.3.0'
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
+
 }
