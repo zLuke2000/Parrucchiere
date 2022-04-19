@@ -1,5 +1,10 @@
 .default-background {
-    -fx-background-color: gray;
+    -fx-background-color: #8d8d8d;
+    -fx-background-radius: 8;
+}
+
+.normal-background {
+    -fx-background-color: #a7c0cd;
     -fx-background-radius: 8;
 }
 
