@@ -66,12 +66,12 @@ public class CVistaPersonale extends Controller {
     @FXML
     public void conferma() {
         boolean check = true;
-        if(cp.testoSempliceSenzaNumeri(tf_nome, 2, 50) & cp.testoSempliceSenzaNumeri(tf_cognome, 2, 50) & cp.testoSempliceSenzaNumeri(tf_username, 2, 16)) {
-            Personale d = new Personale(tf_nome.getText().trim().toLowerCase(Locale.ROOT), tf_cognome.getText().trim().toLowerCase(Locale.ROOT), tf_username.getText().trim().toLowerCase(Locale.ROOT), -1, null);
+        if(cp.testoSempliceSenzaNumeri(tf_nome, 2, 32) & cp.testoSempliceSenzaNumeri(tf_cognome, 2, 32) & cp.testoSempliceSenzaNumeri(tf_username, 2, 16)) {
+            Personale d = new Personale(-1, tf_nome.getText().trim().toLowerCase(Locale.ROOT), tf_cognome.getText().trim().toLowerCase(Locale.ROOT), tf_username.getText().trim().toLowerCase(Locale.ROOT), null);
 
             /* Controllo della nota, se corretta viene registrata */
             if(ta_note.getText().trim().length() > 0) {
-                if (cp.testoSempliceConNumeri(ta_note, 0, 512)) {
+                if (cp.testoSempliceConNumeri(ta_note, 0, 255)) {
                     d.setNote(ta_note.getText().trim());
                 } else {
                     check = false;
@@ -84,7 +84,7 @@ public class CVistaPersonale extends Controller {
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
                     caricaFragment();
-                    reimpostaCampi(tf_nome, tf_cognome, tf_username, ta_note);
+                    reimpostaCampi(true, true, tf_nome, tf_cognome, tf_username, ta_note);
                 } else {
                     l_registrazioneOk.setText("Errore durante la registrazione");
                     css.toError(l_registrazioneOk, null);
@@ -100,6 +100,7 @@ public class CVistaPersonale extends Controller {
 
     @FXML
     public void realtimeCheck() {
+        reimpostaCampi(false, true, tf_nome, tf_cognome, tf_username, ta_note);
         l_registrazioneOk.setVisible(false);
     }
 

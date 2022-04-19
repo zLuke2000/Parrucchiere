@@ -63,7 +63,7 @@ public class Orario extends Thread {
             /* GESTIONE APPUNTAMENTI */
             for(Appuntamento a: listaAppuntamenti) {
                 if(a.getStato().equals(Appuntamento.Stato.DEFAULT)) {
-                    if(a.getOrario().getTime() < orario.getTimeInMillis()) {
+                    if(a.getOrarioInizio().getTime() < orario.getTimeInMillis()) {
                         a.setStato(Appuntamento.Stato.ATTENZIONE);
                     }
                 }

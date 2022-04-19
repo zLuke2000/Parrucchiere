@@ -9,7 +9,6 @@ import java.util.*;
 public class Database {
 
     private static Database instance = null;
-    private final DBHelper dbh = new DBHelper();
     private final Calendar dataDB = new GregorianCalendar();
     private final Connection conn;
     private PreparedStatement pstmt;
@@ -17,7 +16,7 @@ public class Database {
     private Result res;
 
     private Database() {
-        conn = dbh.connetti();
+        conn = new DBHelper().connetti();
     }
 
     public static Database getInstance(){
@@ -33,19 +32,40 @@ public class Database {
 
     public Result registraAppuntamento(@NotNull Appuntamento a) {
         res = new Result(false, Result.Operation.REGISTRA_APPUNTAMENTO);
+        int id = -1;
         try {
-            pstmt = conn.prepareStatement("INSERT INTO public.appuntamenti " +
-                    "VALUES (?, ?, ?, ?, ?)");
-            pstmt.setTimestamp(1, a.getOrario());
-            pstmt.setString(2, a.getNome());
-            pstmt.setString(3, a.getCognome());
+            pstmt = conn.prepareStatement("INSERT INTO public.appuntamenti (timestamp, cliente, personale, note) " +
+                    "VALUES (?, ?, ?, ?)" +
+                    "RETURNING id");
+            pstmt.setTimestamp(1, a.getOrarioInizio());
+            pstmt.setInt(2, a.getCliente().getId());
+            pstmt.setInt(3, a.getPersonale().getId());
             pstmt.setString(4, a.getNote());
-            pstmt.setString(5, String.valueOf(a.getStato()));
-            pstmt.executeUpdate();
+            pstmt.execute();
+            ResultSet rs = pstmt.getResultSet();
+            rs.next();
+            id = rs.getInt("id");
             res.setResult(true);
         } catch (SQLException e) {
             res.setError(Result.Error.VALORE_DUPLICATO);
-            //e.printStackTrace();
+            e.printStackTrace();
+        }
+
+        if(res.getResult() && id != -1) {
+            try {
+                pstmt = conn.prepareStatement("INSERT INTO associative.servizi_appuntamenti (appuntamento, servizio) " +
+                        "VALUES (?, ?)");
+                for (Servizio s : a.getServizi()) {
+                    pstmt.setInt(1, id);
+                    pstmt.setInt(2, s.getId());
+                    pstmt.addBatch();
+                }
+                pstmt.executeBatch();
+                res.setResult(true);
+            } catch (SQLException e) {
+                res.setError(Result.Error.VALORE_DUPLICATO);
+                e.printStackTrace();
+            }
         }
         return res;
     }
@@ -55,11 +75,8 @@ public class Database {
         try {
             pstmt = conn.prepareStatement("DELETE " +
                     "FROM public.appuntamenti " +
-                    "WHERE data = ? AND nome = ? AND cognome = ? AND note = ? ");
-            pstmt.setTimestamp(1, a.getOrario());
-            pstmt.setString(2, a.getNome());
-            pstmt.setString(3, a.getCognome());
-            pstmt.setString(4, a.getNote());
+                    "WHERE id = ?");
+            pstmt.setInt(1, a.getId());
             if(pstmt.executeUpdate() == 1) {
                 res.setResult(true);
             }
@@ -72,90 +89,105 @@ public class Database {
     /**
      * Metodo lettura appuntamenti
      * @param data data per calcolare l'intervallo
-     * @param personale personale, inserire -1 per non filtrare
+     * @param idPersonale personale, inserire -1 per non filtrare
      * @return lista di appuntamenti
      */
-    public Result leggiAppuntamenti(@NotNull Calendar data, int personale) {
+    public Result leggiAppuntamenti(@NotNull Calendar data, int idPersonale) {
         dataDB.setTimeInMillis(data.getTimeInMillis());
+        dataDB.set(Calendar.HOUR_OF_DAY, 0);
+        dataDB.set(Calendar.MINUTE, 0);
+        dataDB.set(Calendar.SECOND, 0);
+        dataDB.set(Calendar.MILLISECOND, 0);
+        Timestamp timeFrom = new Timestamp(dataDB.getTimeInMillis());
+        dataDB.add(Calendar.DAY_OF_YEAR, 1);
+        Timestamp timeTo = new Timestamp(dataDB.getTimeInMillis());
         res = new Result(false, Result.Operation.LEGGI_APPUNTAMENTI_GIORNO);
 
-        /* Leggo tutti i servizi */
-        HashMap<Integer, Servizio> mappaServizi = new HashMap<>();
+        /* Controllo se esistono appuntamenti associati alla data di oggi */
         try {
-            pstmt = conn.prepareStatement("SELECT * " +
-                    "FROM public.servizi " +
-                    "ORDER BY id");
+            pstmt = conn.prepareStatement("SELECT COUNT(*) " +
+                    "FROM public.appuntamenti " +
+                    "WHERE timestamp >= ? AND timestamp < ?");
+            pstmt.setTimestamp(1, timeFrom);
+            pstmt.setTimestamp(2, timeTo);
             rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Servizio s = new Servizio(rs.getInt("id"), rs.getString("nome"), rs.getInt("durata"), rs.getString("note"));
-                mappaServizi.put(rs.getInt("id"), s);
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
+            rs.next();
+            if (rs.getInt(1) > 0) {
 
-        /* Leggo tutti il personale */
-        HashMap<Integer, Personale> mappaPersonale = new HashMap<>();
-        try {
-            pstmt = conn.prepareStatement("SELECT * " +
-                    "FROM public.personale " +
-                    "ORDER BY id");
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Personale d = new Personale(rs.getString("nome"), rs.getString("cognome"), rs.getString("nickname"), rs.getInt("id"), rs.getString("note"));
-                mappaPersonale.put(rs.getInt("id"), d);
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
+                HashMap<Integer, Servizio> mappaServizi = new HashMap<>();
+                HashMap<Integer, Cliente> mappaClienti = new HashMap<>();
+                HashMap<Integer, Personale> mappaPersonale = new HashMap<>();
 
-        /* Leggo gli appuntamenti */
-        try {
-            if (personale == -1) {
-                /* Leggo gli appuntamenti in un intervallo di date */
-                pstmt = conn.prepareStatement("SELECT * " +
-                        "FROM public.appuntamenti " +
-                        "WHERE data >= ? AND data < ?" +
-                        "ORDER BY data");
-            } else {
-                /* Leggo gli appuntamenti in un intervallo di date e di un certo dipendente */
-                pstmt = conn.prepareStatement("SELECT * " +
-                        "FROM public.appuntamenti " +
-                        "WHERE data >= ? AND data < ? AND dipendente = ?" +
-                        "ORDER BY data");
-                pstmt.setInt(3, personale);
-            }
-
-            dataDB.set(Calendar.HOUR_OF_DAY, 0);
-            dataDB.set(Calendar.MINUTE, 0);
-            dataDB.set(Calendar.SECOND, 0);
-            dataDB.set(Calendar.MILLISECOND, 0);
-            pstmt.setTimestamp(1, new Timestamp(dataDB.getTimeInMillis()));
-            dataDB.add(Calendar.DAY_OF_YEAR, 1);
-            pstmt.setTimestamp(2, new Timestamp(dataDB.getTimeInMillis()));
-            rs = pstmt.executeQuery();
-
-            List<Object> listaAppuntamenti = new ArrayList<>();
-            while(rs.next()) {
-                Appuntamento a = new Appuntamento(rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getTimestamp("data"),
-                        rs.getString("note"),
-                        Appuntamento.Stato.valueOf(rs.getString("stato")),
-                        null,
-                        mappaPersonale.get(rs.getInt("personale")));
-                Integer[] arrayServizi = (Integer[]) rs.getArray("servizi").getArray();
-                for(int i = 0; i < arrayServizi.length-1; i++) {
-                    a.getServizi().add(mappaServizi.get(arrayServizi[i]));
+                /* Leggo tutti i servizi */
+                Result res = leggiServizi("**");
+                if(res.getResult()) {
+                    for(Servizio s: res.getList(Servizio.class)) {
+                        mappaServizi.put(s.getId(), s);
+                    }
                 }
-                listaAppuntamenti.add(a);
-            }
-            res.setList(listaAppuntamenti);
-            res.setResult(true);
-        } catch(SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
 
+                /* Leggo tutti i clienti */
+                res = leggiClienti("**");
+                if(res.getResult()) {
+                    for(Cliente c: res.getList(Cliente.class)) {
+                        mappaClienti.put(c.getId(), c);
+                    }
+                }
+
+                /* Leggo tutto il personale */
+                res = leggiPersonale();
+                if(res.getResult()) {
+                    for(Personale p: res.getList(Personale.class)) {
+                        mappaPersonale.put(p.getId(), p);
+                    }
+                }
+
+                /* Leggo gli appuntamenti */
+                if (idPersonale == -1) {
+                    /* Leggo gli appuntamenti in un intervallo di date */
+                    pstmt = conn.prepareStatement("SELECT * " +
+                            "FROM public.appuntamenti " +
+                            "WHERE timestamp >= ? AND timestamp < ?" +
+                            "ORDER BY timestamp");
+                } else {
+                    /* Leggo gli appuntamenti in un intervallo di date e di un certo dipendente */
+                    pstmt = conn.prepareStatement("SELECT * " +
+                            "FROM public.appuntamenti " +
+                            "WHERE timestamp >= ? AND timestamp < ? AND personale = ?" +
+                            "ORDER BY timestamp");
+                    pstmt.setInt(3, idPersonale);
+                }
+                pstmt.setTimestamp(1, timeFrom);
+                pstmt.setTimestamp(2, timeTo);
+                rs = pstmt.executeQuery();
+
+                List<Object> listaAppuntamenti = new ArrayList<>();
+                while (rs.next()) {
+                    Appuntamento a = new Appuntamento(rs.getInt("id"), rs.getTimestamp("timestamp"), rs.getString("note"), Appuntamento.Stato.valueOf(rs.getString("stato")));
+
+                    /* Imposto il cliente */
+                    a.setCliente(mappaClienti.get(rs.getInt("cliente")));
+
+                    /* Imposto il personale */
+                    a.setPersonale(mappaPersonale.get(rs.getInt("personale")));
+
+                    /* Imposto i servizi */
+                    pstmt = conn.prepareStatement("SELECT servizio " +
+                            "FROM associative.servizi_appuntamenti " +
+                            "WHERE appuntamento = ?");
+                    pstmt.setInt(1, a.getId());
+                    ResultSet rs3 = pstmt.executeQuery();
+                    while (rs3.next()) {
+                        a.getServizi().add(mappaServizi.get(rs3.getInt("servizio")));
+                    }
+                    listaAppuntamenti.add(a);
+                }
+                res.setList(listaAppuntamenti);
+                res.setResult(true);
+            }
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
         return res;
     }
 
@@ -163,13 +195,10 @@ public class Database {
         res = new Result(false, Result.Operation.CAMBIA_STATO);
         try {
             pstmt = conn.prepareStatement("UPDATE public.appuntamenti " +
-                    "SET stato = ?" +
-                    "WHERE data = ? AND nome = ? AND cognome = ? AND note = ? ");
-            pstmt.setString(1, String.valueOf(a.getStato()));
-            pstmt.setTimestamp(2, a.getOrario());
-            pstmt.setString(3, a.getNome());
-            pstmt.setString(4, a.getCognome());
-            pstmt.setString(5, a.getNote());
+                    "SET stato = ? " +
+                    "WHERE id = ?");
+            pstmt.setObject(1, a.getStato(), java.sql.Types.OTHER);
+            pstmt.setInt(2, a.getId());
             if(pstmt.executeUpdate() == 1) {
                 res.setResult(true);
             }
@@ -186,11 +215,11 @@ public class Database {
     public Result registraCliente(@NotNull Cliente c) {
         res = new Result(false, Result.Operation.REGISTRA_CLIENTE);
         try {
-            pstmt = conn.prepareStatement("INSERT INTO public.clienti(nome, cognome, data_nascita, numero_cellulare, numero_fisso, email, colore, note) " +
+            pstmt = conn.prepareStatement("INSERT INTO public.clienti (nome, cognome, data_nascita, n_cellulare, n_fisso, email, colore, note) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, c.getNome());
             pstmt.setString(2, c.getCognome());
-            pstmt.setTimestamp(3, c.getDataNascita());
+            pstmt.setDate(3, c.getDataNascita());
             pstmt.setString(4, c.getNumeroCellulare());
             pstmt.setString(5, c.getNumeroFisso());
             pstmt.setString(6, c.getEmail());
@@ -208,10 +237,9 @@ public class Database {
         res = new Result(false, Result.Operation.RIMUOVI_CLIENTE);
         try {
             pstmt = conn.prepareStatement("DELETE " +
-                    "FROM public.clienti " +
-                    "WHERE nome = ? AND cognome = ?");
-            pstmt.setString(1, c.getNome());
-            pstmt.setString(2, c.getCognome());
+                                              "FROM public.clienti " +
+                                              "WHERE id = ?");
+            pstmt.setInt(1, c.getId());
             if(pstmt.executeUpdate() == 1) {
                 res.setResult(true);
             }
@@ -221,6 +249,10 @@ public class Database {
         return res;
     }
 
+    /**
+     * @param text testo da cercare all'interno del nome e cognome, inserire "**" per ottenere la lista completa
+     * @return result associato all'operazione
+     */
     public Result leggiClienti(@NotNull String text) {
         res = new Result(false, Result.Operation.LEGGI_CLIENTI);
         try {
@@ -239,14 +271,8 @@ public class Database {
 
             List<Object> listaClienti = new ArrayList<>();
             while(rs.next()) {
-                listaClienti.add(new Cliente(rs.getString("nome"),
-                        rs.getString("cognome"),
-                        rs.getTimestamp("data_nascita"),
-                        rs.getString("numero_cellulare"),
-                        rs.getString("numero_fisso"),
-                        rs.getString("email"),
-                        rs.getString("colore"),
-                        rs.getString("note")));
+                listaClienti.add(new Cliente(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), rs.getDate("data_nascita"),
+                        rs.getString("n_cellulare"), rs.getString("n_fisso"), rs.getString("email"), rs.getString("colore"), rs.getString("note")));
             }
             res.setList(listaClienti);
             res.setResult(true);
@@ -284,23 +310,38 @@ public class Database {
     }
 
     public Result modificaCampiCliente(@NotNull Cliente c) {
-        res = new Result(false, Result.Operation.REGISTRA_CAMPI_CLIENTE);
+        res = new Result(false, Result.Operation.MODIFICA_CAMPI_CLIENTE);
         try {
-            pstmt = conn.prepareStatement("UPDATE public.clienti" +
-                    "SET data_nascita = ?, numero_cellulare = ?, numero_fisso = ?, email = ?, colore = ?, note = ?" +
-                    "WHERE nome = ? AND cognome  = ?");
-            pstmt.setTimestamp(1, c.getDataNascita());
+            pstmt = conn.prepareStatement("UPDATE public.clienti " +
+                    "SET data_nascita = ?, n_cellulare = ?, n = ?, email = ?, note = ? " +
+                    "WHERE id = ?");
+            pstmt.setDate(1, c.getDataNascita());
             pstmt.setString(2, c.getNumeroCellulare());
             pstmt.setString(3, c.getNumeroFisso());
             pstmt.setString(4, c.getEmail());
-            pstmt.setString(5, c.getColore());
-            pstmt.setString(6, c.getNote());
-            pstmt.setString(7, c.getNome());
-            pstmt.setString(8, c.getCognome());
+            pstmt.setString(5, c.getNote());
+            pstmt.setInt(6, c.getId());
             pstmt.executeUpdate();
             res.setResult(true);
         } catch (SQLException e) {
-//            res.setError(Result.Error.ERRORE);
+            res.setError(Result.Error.ERRORE);
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result modificaColoreCliente(@NotNull Cliente c) {
+        res = new Result(false, Result.Operation.MODIFICA_CAMPI_CLIENTE);
+        try {
+            pstmt = conn.prepareStatement("UPDATE public.clienti " +
+                    "SET colore = ? " +
+                    "WHERE id = ?");
+            pstmt.setString(1, c.getColore());
+            pstmt.setInt(2, c.getId());
+            pstmt.executeUpdate();
+            res.setResult(true);
+        } catch (SQLException e) {
+            res.setError(Result.Error.ERRORE);
             e.printStackTrace();
         }
         return res;
@@ -313,8 +354,8 @@ public class Database {
     public Result registraPersonale(@NotNull Personale p) {
         res = new Result(false, Result.Operation.REGISTRA_PERSONALE);
         try {
-            pstmt = conn.prepareStatement("INSERT INTO public.personale(nome, cognome, nickname, note) " +
-                    "VALUES (?, ?, ?, ?)");
+            pstmt = conn.prepareStatement("INSERT INTO public.personale (nome, cognome, username, note) " +
+                                              "VALUES (?, ?, ?, ?)");
             pstmt.setString(1, p.getNome());
             pstmt.setString(2, p.getCognome());
             pstmt.setString(3, p.getUsername());
@@ -332,11 +373,9 @@ public class Database {
         res = new Result(false, Result.Operation.RIMUOVI_PERSONALE);
         try {
             pstmt = conn.prepareStatement("DELETE " +
-                    "FROM public.personale " +
-                    "WHERE nome = ? AND cognome = ? AND nickname = ?");
-            pstmt.setString(1, p.getNome());
-            pstmt.setString(2, p.getCognome());
-            pstmt.setString(3, p.getUsername());
+                                              "FROM public.personale " +
+                                              "WHERE id = ?");
+            pstmt.setInt(1, p.getId());
             if(pstmt.executeUpdate() == 1) {
                 res.setResult(true);
             }
@@ -355,11 +394,28 @@ public class Database {
 
             List<Object> listaDipendenti = new ArrayList<>();
             while(rs.next()) {
-                listaDipendenti.add(new Personale(rs.getString("nome"), rs.getString("cognome"), rs.getString("nickname"), rs.getInt("id"), rs.getString("note")));
+                listaDipendenti.add(new Personale(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), rs.getString("username"), rs.getString("note")));
             }
             res.setList(listaDipendenti);
             res.setResult(true);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result modificaCampiPersonale(@NotNull Personale p) {
+        res = new Result(false, Result.Operation.MODIFICA_CAMPI_PERSONALE);
+        try {
+            pstmt = conn.prepareStatement("UPDATE public.personale " +
+                    "SET note = ? " +
+                    "WHERE id = ?");
+            pstmt.setString(1, p.getNote());
+            pstmt.setInt(2, p.getId());
+            pstmt.executeUpdate();
+            res.setResult(true);
+        } catch (SQLException e) {
+            res.setError(Result.Error.ERRORE);
             e.printStackTrace();
         }
         return res;
@@ -372,8 +428,8 @@ public class Database {
     public Result registraServizio(@NotNull Servizio s) {
         res = new Result(false, Result.Operation.REGISTRA_SERVIZIO);
         try {
-            pstmt = conn.prepareStatement("INSERT INTO public.servizi(nome, durata, note)" +
-                    "VALUES (?, ?, ?)");
+            pstmt = conn.prepareStatement("INSERT INTO public.servizi (nome, durata, note) " +
+                                              "VALUES (?, ?, ?)");
             pstmt.setString(1, s.getNome());
             pstmt.setDouble(2, s.getDurata());
             pstmt.setString(3, s.getNote());
@@ -390,11 +446,9 @@ public class Database {
         res = new Result(false, Result.Operation.RIMUOVI_SERVIZIO);
         try {
             pstmt = conn.prepareStatement("DELETE " +
-                    "FROM public.servizi " +
-                    "WHERE id = ? AND nome = ? AND durata = ?");
+                                              "FROM public.servizi " +
+                                              "WHERE id = ?");
             pstmt.setInt(1, s.getId());
-            pstmt.setString(2, s.getNome());
-            pstmt.setInt(3, s.getDurata());
             if(pstmt.executeUpdate() == 1) {
                 res.setResult(true);
             }
@@ -409,9 +463,13 @@ public class Database {
         try {
             pstmt = conn.prepareStatement("SELECT * " +
                     "FROM public.servizi " +
-                    "WHERE nome ILIKE ?" +
-                    "ORDER BY nome ");
-            pstmt.setString(1, "%" + text + "%");
+                    "WHERE nome ILIKE ? " +
+                    "ORDER BY nome");
+            if(text.equals("**")) {
+                pstmt.setString(1, "%");
+            } else {
+                pstmt.setString(1, "%" + text + "%");
+            }
             rs = pstmt.executeQuery();
 
             List<Object> listaServizi = new ArrayList<>();
@@ -421,6 +479,92 @@ public class Database {
             res.setList(listaServizi);
             res.setResult(true);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result leggiIdServPref(int idCliente) {
+        res = new Result(false, Result.Operation.LEGGI_SERVIZI);
+        try {
+            pstmt = conn.prepareStatement("SELECT * " +
+                    "FROM associative.servizi_preferiti " +
+                    "WHERE cliente = ? " +
+                    "ORDER BY servizio");
+            pstmt.setInt(1, idCliente);
+            rs = pstmt.executeQuery();
+
+            List<Object> listaIdServizi = new ArrayList<>();
+            while(rs.next()) {
+                listaIdServizi.add(rs.getInt("servizio"));
+            }
+            res.setList(listaIdServizi);
+            res.setResult(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result leggiServPref(int idCliente) {
+        res = new Result(false, Result.Operation.LEGGI_SERVIZI);
+        try {
+            pstmt = conn.prepareStatement("SELECT * " +
+                    "FROM associative.vista_sp " +
+                    "WHERE cliente = ? " +
+                    "ORDER BY id");
+            pstmt.setInt(1, idCliente);
+            rs = pstmt.executeQuery();
+
+            List<Object> listaServizi = new ArrayList<>();
+            while(rs.next()) {
+                listaServizi.add(new Servizio(rs.getInt("id"), rs.getString("nome"), rs.getInt("durata"), rs.getString("note")));
+            }
+            res.setList(listaServizi);
+            res.setResult(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result aggiornaServPref(int idCliente, List<Integer> idServizi) {
+        res = new Result(false, Result.Operation.LEGGI_SERVIZI);
+        try {
+            pstmt = conn.prepareStatement("DELETE " +
+                    "FROM associative.servizi_preferiti " +
+                    "WHERE cliente = ? ");
+            pstmt.setInt(1, idCliente);
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement("INSERT INTO associative.servizi_preferiti " +
+                    "VALUES (?, ?)");
+
+            for(Integer i: idServizi) {
+                pstmt.setInt(1, idCliente);
+                pstmt.setInt(2, i);
+                pstmt.addBatch();
+            }
+            pstmt.executeBatch();
+            res.setResult(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public Result modificaCampiServizio(@NotNull Servizio s) {
+        res = new Result(false, Result.Operation.MODIFICA_CAMPI_SERVIZIO);
+        try {
+            pstmt = conn.prepareStatement("UPDATE public.servizi " +
+                    "SET note = ? " +
+                    "WHERE id = ?");
+            pstmt.setString(1, s.getNote());
+            pstmt.setInt(2, s.getId());
+            pstmt.executeUpdate();
+            res.setResult(true);
+        } catch (SQLException e) {
+            res.setError(Result.Error.ERRORE);
             e.printStackTrace();
         }
         return res;

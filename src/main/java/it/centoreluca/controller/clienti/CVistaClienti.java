@@ -21,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -34,9 +34,9 @@ public class CVistaClienti extends Controller {
     @FXML private TextField tf_dataG;
     @FXML private TextField tf_dataM;
     @FXML private TextField tf_dataA;
-    @FXML private TextField tf_eMail;
-    @FXML private TextField tf_numeroFisso;
-    @FXML private TextField tf_numeroCellulare;
+    @FXML private TextField tf_email;
+    @FXML private TextField tf_telefonoFisso;
+    @FXML private TextField tf_telefonoCellulare;
     @FXML private TextArea ta_note;
     @FXML private Label l_registrazioneOk;
 
@@ -54,31 +54,31 @@ public class CVistaClienti extends Controller {
             if(tf_dataG.getText().trim().length() > 0 || tf_dataM.getText().trim().length() > 0 || tf_dataA.getText().trim().length() > 0) {
                 Calendar data = cp.data(tf_dataG, tf_dataM, tf_dataA);
                 if (data != null) {
-                    c.setDataNascita(new Timestamp(data.getTimeInMillis()));
+                    c.setDataNascita(new Date(data.getTimeInMillis()));
                 } else {
                     check = false;
                 }
             }
             /* Controllo del numero cellulare, se corretto viene registrato */
-            if(tf_numeroCellulare.getText().trim().length() > 0) {
-                if (cp.numeri(tf_numeroCellulare, 10, 16)) {
-                    c.setNumeroCellulare(tf_numeroCellulare.getText().trim());
+            if(tf_telefonoCellulare.getText().trim().length() > 0) {
+                if (cp.numeri(tf_telefonoCellulare, 10, 16)) {
+                    c.setNumeroCellulare(tf_telefonoCellulare.getText().trim());
                 } else {
                     check = false;
                 }
             }
             /* Controllo del numero fisso, se corretto viene registrato */
-            if(tf_numeroFisso.getText().trim().length() > 0) {
-                if (cp.numeri(tf_numeroFisso, 10, 16)) {
-                    c.setNumeroFisso(tf_numeroFisso.getText().trim());
+            if(tf_telefonoFisso.getText().trim().length() > 0) {
+                if (cp.numeri(tf_telefonoFisso, 10, 16)) {
+                    c.setNumeroFisso(tf_telefonoFisso.getText().trim());
                 } else {
                     check = false;
                 }
             }
             /* Controllo dell'email, se corretta viene registrata */
-            if(tf_eMail.getText().trim().length() > 0) {
-                if (cp.email(tf_eMail)) {
-                    c.setEmail(tf_eMail.getText().trim());
+            if(tf_email.getText().trim().length() > 0) {
+                if (cp.email(tf_email)) {
+                    c.setEmail(tf_email.getText().trim());
                 } else {
                     check = false;
                 }
@@ -98,6 +98,7 @@ public class CVistaClienti extends Controller {
                     l_registrazioneOk.setText("Cliente registrato con successo");
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
+                    reimpostaCampi(true, true, tf_nome, tf_cognome, tf_dataG, tf_dataM, tf_dataA, tf_telefonoCellulare, tf_telefonoFisso, tf_email, ta_note);
                 } else {
                     l_registrazioneOk.setText("Errore durante la registrazione");
                     css.toError(l_registrazioneOk, null);
@@ -143,8 +144,8 @@ public class CVistaClienti extends Controller {
                 }
             }
         } else {
+            reimpostaCampi(false, true, tf_nome, tf_cognome, tf_dataG, tf_dataM, tf_dataA, tf_telefonoCellulare, tf_telefonoFisso, tf_email, ta_note);
             l_registrazioneOk.setVisible(false);
-            reimpostaCampi(tf_nome, tf_cognome, tf_dataG, tf_dataM, tf_dataA, tf_numeroCellulare, tf_numeroFisso, tf_eMail, ta_note);
         }
     }
 

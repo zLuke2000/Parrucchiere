@@ -2,17 +2,17 @@ package it.centoreluca.models;
 
 import javafx.scene.layout.AnchorPane;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Cliente {
 
+    private int id;
     private String nome;
     private String cognome;
-    private Timestamp dataNascita;
+    private Date dataNascita;
     private String numeroCellulare;
     private String numeroFisso;
     private String email;
-
     private String colore;
     private String note;
 
@@ -34,7 +34,8 @@ public class Cliente {
      * @param colore colore attuale applicato al cliente
      * @param note note
      */
-    public Cliente(String nome, String cognome, Timestamp dataNascita, String numeroCellulare, String numeroFisso, String email, String colore, String note) {
+    public Cliente(int id, String nome, String cognome, Date dataNascita, String numeroCellulare, String numeroFisso, String email, String colore, String note) {
+        this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
@@ -43,6 +44,14 @@ public class Cliente {
         this.email = email;
         this.colore = colore;
         this.note = note;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -61,11 +70,11 @@ public class Cliente {
         this.cognome = cognome;
     }
 
-    public Timestamp getDataNascita() {
+    public Date getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Timestamp dataNascita) {
+    public void setDataNascita(Date dataNascita) {
         this.dataNascita = dataNascita;
     }
 

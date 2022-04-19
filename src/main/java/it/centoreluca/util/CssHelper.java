@@ -19,13 +19,14 @@ public class CssHelper {
         return instance;
     }
 
-    public void toError(Control c, Tooltip tooltip) {
+    public void toError(Control c, String testoTooltip) {
         toDefault(c);
         c.getStyleClass().add("field-error");
-        if(tooltip != null) {
-            tooltip.getStyleClass().add("tooltip-error");
-            tooltip.setShowDelay(Duration.ZERO);
-            c.setTooltip(tooltip);
+        if(testoTooltip != null) {
+            Tooltip t = new Tooltip(testoTooltip);
+            t.getStyleClass().add("tooltip-error");
+            t.setShowDelay(Duration.ZERO);
+            c.setTooltip(t);
         }
     }
 

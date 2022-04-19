@@ -42,23 +42,25 @@ public class CColonna extends Controller {
     public void caricaAppuntamenti() {
         vb_container.getChildren().clear();
         Result rs = db.leggiAppuntamenti(data, -1);
-        for (Appuntamento a: rs.getList(Appuntamento.class)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendarioS/Appuntamento.fxml"));
-            try {
-                AnchorPane ap = fxmlLoader.load();
-                vb_container.getChildren().add(ap);
-                CAppuntamento appuntamentoController = fxmlLoader.getController();
-                appuntamentoController.impostaContenuto(this, a);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(rs.getResult()) {
+            for (Appuntamento a : rs.getList(Appuntamento.class)) {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/fragment/calendarioS/Appuntamento.fxml"));
+                try {
+                    AnchorPane ap = fxmlLoader.load();
+                    vb_container.getChildren().add(ap);
+                    CAppuntamento appuntamentoController = fxmlLoader.getController();
+                    appuntamentoController.impostaContenuto(this, a);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /* Aggiungo l'appuntamento al Thread dedicato al controllo dell'orario */
+                ora.aggiungiAppuntamento(a);
             }
-            /* Aggiungo l'appuntamento al Thread dedicato al controllo dell'orario */
-            ora.aggiungiAppuntamento(a);
         }
     }
 
     public void nuovoAppuntamento() {
-        CNuovoAppS controller = (CNuovoAppS) dh.newDialog("fxml/fragment/dialog/NuovoAppuntamento", null, this, data, null);
+        CNuovoAppS controller = (CNuovoAppS) dh.newDialog("fxml/fragment/dialog/NuovoAppuntamento", "Nuovo Appuntamento", this, data, null, null);
         controller.impostaData(data);
     }
 }

@@ -4,18 +4,22 @@ import it.centoreluca.controller.Controller;
 import it.centoreluca.database.Database;
 import it.centoreluca.enumerator.Mesi;
 import it.centoreluca.models.Cliente;
+import it.centoreluca.models.Result;
+import it.centoreluca.models.Servizio;
 import it.centoreluca.util.ControlloParametri;
+import it.centoreluca.util.CssHelper;
 import it.centoreluca.util.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class CCliente extends Controller {
 
@@ -49,10 +53,12 @@ public class CCliente extends Controller {
     // Icone
     @FXML private FontIcon fi_edit;
     @FXML private FontIcon fi_save;
-    @FXML private FontIcon fi_salvataggio;
+
+    @FXML private HBox hb_serviziPreferiti;
 
     private final ControlloParametri cp = ControlloParametri.getInstance();
     private final DialogHelper dh = DialogHelper.getInstance();
+    private final CssHelper css = CssHelper.getInstance();
     private final Database db = Database.getInstance();
     private CVistaClienti parent;
     private Cliente c;
@@ -88,47 +94,105 @@ public class CCliente extends Controller {
         l_email.setText(c.getEmail());
         l_note.setText(c.getNote());
         tf_colore.setText(c.getColore());
-    }
 
-    public void realtimeCheck() {
-        //TODO controllo cambio colore
+        caricaPreferiti();
     }
 
     @FXML
-    public void modifica() {
-        // Inverto visualizzazione campi
-        l_telefonoCellulare.setVisible(!fi_edit.isVisible());
-        tf_telefonoCellulare.setVisible(fi_edit.isVisible());
-        l_telefonoFisso.setVisible(!fi_edit.isVisible());
-        tf_telefonoFisso.setVisible(fi_edit.isVisible());
-        l_email.setVisible(!fi_edit.isVisible());
-        tf_email.setVisible(fi_edit.isVisible());
-        l_note.setVisible(!fi_edit.isVisible());
-        ta_note.setVisible(fi_edit.isVisible());
-
-        if(fi_edit.isVisible()) {
-            copiaCampi(l_telefonoCellulare, tf_telefonoCellulare);
-            copiaCampi(l_telefonoFisso, tf_telefonoFisso);
-            copiaCampi(l_email, tf_email);
-            copiaCampi(l_note, ta_note);
+    private void coloreRealtime() {
+        if(tf_colore.getText().trim().length() > 128) {
+            css.toError(tf_colore,"Massimo 128 caratteri");
+        } else {
+            css.toValid(tf_colore);
+            c.setColore(tf_colore.getText().trim().toUpperCase(Locale.ROOT));
+            db.modificaColoreCliente(c);
         }
-
-        // Inverto icone
-        fi_edit.setVisible(!fi_edit.isVisible());
-        fi_save.setVisible(!fi_save.isVisible());
     }
 
     @FXML
-    public void elimina(MouseEvent me) {
-        if(me.getClickCount() > 1) {
-            if(db.rimuoviCliente(c).getResult()) {
-                rimuoviNodo(parent.vb_container, n);
+    private void preferiti() {
+        dh.newDialog("fxml/dialog/Preferiti", "Gestione preferiti", this, null, null, c);
+    }
+
+    /**
+     * Metodo per caricare le chips dei preferiti per ogni cliente
+     */
+    public void caricaPreferiti() {
+
+        Result res = db.leggiServPref(c.getId());
+        if(res.getResult()) {
+            hb_serviziPreferiti.getChildren().clear();
+            for(Servizio s: res.getList(Servizio.class)) {
+                Label l = new Label(s.getNome());
+                l.getStyleClass().add("l-servizio");
+                hb_serviziPreferiti.getChildren().add(l);
             }
         }
     }
 
-    private void copiaCampi(Label l, TextInputControl tic) {
-        tic.setText(l.getText());
+    @FXML
+    private void modifica() {
+        boolean stato;
+        // Copio campi e salvataggio
+        if(fi_edit.isVisible()) {
+            //TODO copiare campo data di nascita
+            copiaCampi(l_telefonoCellulare, tf_telefonoCellulare);
+            copiaCampi(l_telefonoFisso, tf_telefonoFisso);
+            copiaCampi(l_email, tf_email);
+            copiaCampi(l_note, ta_note);
+            stato = true;
+        } else {
+            boolean modifiche = false;
+            if(cambiamenti(l_telefonoCellulare, tf_telefonoCellulare) & cp.numeri(tf_telefonoCellulare, 10, 16)) {
+                c.setNumeroCellulare(tf_telefonoCellulare.getText().trim());
+                modifiche = true;
+            }
+            if(cambiamenti(l_telefonoFisso, tf_telefonoFisso) & cp.numeri(tf_telefonoFisso, 10, 16)) {
+                c.setNumeroFisso(tf_telefonoCellulare.getText().trim());
+                modifiche = true;
+            }
+            if(cambiamenti(l_email, tf_email) & cp.email(tf_email)) {
+                c.setEmail(tf_telefonoCellulare.getText().trim());
+                modifiche = true;
+            }
+            if(cambiamenti(l_note, ta_note) & cp.testoSempliceConNumeri(ta_note, 0, 512)) {
+                c.setNote(ta_note.getText().trim());
+                modifiche = true;
+            }
+
+            if(modifiche & db.modificaCampiCliente(c).getResult()) {
+                l_telefonoCellulare.setText(c.getNumeroCellulare());
+                l_telefonoFisso.setText(c.getNumeroFisso());
+                l_email.setText(c.getEmail());
+                l_note.setText(c.getNote());
+                stato = true;
+            } else {
+                stato = false;
+            }
+        }
+
+        if(stato) {
+            // Inverto visualizzazione campi
+            l_telefonoCellulare.setVisible(!fi_edit.isVisible());
+            tf_telefonoCellulare.setVisible(fi_edit.isVisible());
+            l_telefonoFisso.setVisible(!fi_edit.isVisible());
+            tf_telefonoFisso.setVisible(fi_edit.isVisible());
+            l_email.setVisible(!fi_edit.isVisible());
+            tf_email.setVisible(fi_edit.isVisible());
+            l_note.setVisible(!fi_edit.isVisible());
+            ta_note.setVisible(fi_edit.isVisible());
+
+            // Inverto icone
+            fi_edit.setVisible(!fi_edit.isVisible());
+            fi_save.setVisible(!fi_save.isVisible());
+        }
+    }
+
+    @FXML
+    private void elimina(MouseEvent me) {
+        if(me.getClickCount() > 1 && db.rimuoviCliente(c).getResult()) {
+            rimuoviNodo(parent.vb_container, n);
+        }
     }
 
 }

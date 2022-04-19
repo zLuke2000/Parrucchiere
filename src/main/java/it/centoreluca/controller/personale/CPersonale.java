@@ -7,14 +7,28 @@ import it.centoreluca.util.ControlloParametri;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class CPersonale extends Controller {
 
+    // Username
     @FXML private Label l_username;
+    @FXML private TextField tf_username;
+
+    // Labels
     @FXML private Label l_cognome;
     @FXML private Label l_nome;
+
+    // Note
     @FXML private Label l_note;
+    @FXML private TextArea ta_note;
+
+    // Icone
+    @FXML private FontIcon fi_edit;
+    @FXML private FontIcon fi_save;
 
     private final ControlloParametri cp = ControlloParametri.getInstance();
     private final Database db = Database.getInstance();
@@ -34,11 +48,44 @@ public class CPersonale extends Controller {
     }
 
     @FXML
-    public void modifica() {
+    private void modifica() {
+        boolean stato = false;
+        // Copio campi e salvataggio
+        if(fi_edit.isVisible()) {
+            copiaCampi(l_note, ta_note);
+            copiaCampi(l_username, tf_username);
+            stato = true;
+        } else {
+            if(cp.testoSempliceConNumeri(ta_note, 0, 255) & cp.testoSempliceSenzaNumeri(tf_username, 2, 16)) {
+                p.setUsername(tf_username.getText().trim());
+                p.setNote(ta_note.getText().trim());
+                if(cambiamenti(l_note, ta_note) || cambiamenti(l_username, tf_username)) {
+                    if (db.modificaCampiPersonale(p).getResult()) {
+                        l_username.setText(p.getUsername());
+                        l_note.setText(p.getNote());
+                        stato = true;
+                    }
+                } else {
+                    stato = true;
+                }
+            }
+        }
+
+        if(stato) {
+            // Inverto visualizzazione campi
+            l_username.setVisible(!fi_edit.isVisible());
+            tf_username.setVisible(fi_edit.isVisible());
+            l_note.setVisible(!fi_edit.isVisible());
+            ta_note.setVisible(fi_edit.isVisible());
+
+            // Inverto icone
+            fi_edit.setVisible(!fi_edit.isVisible());
+            fi_save.setVisible(!fi_save.isVisible());
+        }
     }
 
     @FXML
-    public void elimina(MouseEvent me) {
+    private void elimina(MouseEvent me) {
         if(me.getClickCount() > 1) {
             if(db.rimuoviPersonale(p).getResult()) {
                 rimuoviNodo(parent.vb_container, n);

@@ -2,10 +2,10 @@ package it.centoreluca.models;
 
 public class Servizio {
 
-    int id;
-    String nome;
-    int durata;
-    String note;
+    private int id;
+    private String nome;
+    private int durata;
+    private String note;
 
     public Servizio(int id, String nome, int durata, String note) {
         this.id = id;
@@ -74,4 +74,5 @@ public class Servizio {
 
         return testo;
     }
+
 }

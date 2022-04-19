@@ -51,7 +51,7 @@ public class CCalendarioAgenda extends Controller {
                 AnchorPane ap = fxmlLoader.load();
                 hb_container.getChildren().add(ap);
                 /* ANIMAZIONE */
-                FadeTransition ft = new FadeTransition(Duration.millis(500), ap);
+                FadeTransition ft = new FadeTransition(Duration.millis(250), ap);
                 ft.setFromValue(0);
                 ft.setToValue(1);
                 st.getChildren().add(ft);

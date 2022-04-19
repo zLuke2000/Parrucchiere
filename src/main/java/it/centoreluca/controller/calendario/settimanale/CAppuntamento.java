@@ -16,10 +16,12 @@ import java.util.GregorianCalendar;
 public class CAppuntamento extends Controller {
 
     @FXML private AnchorPane ap_root;
+
     @FXML private Label l_nome;
     @FXML private Label l_cognome;
     @FXML private Label l_orario;
     @FXML private Label l_note;
+
     @FXML private FontIcon fi_annulla;
     @FXML private FontIcon fi_reimposta;
     @FXML private FontIcon fi_completa;
@@ -33,9 +35,9 @@ public class CAppuntamento extends Controller {
     public void impostaContenuto(CColonna parent, Appuntamento a) {
         this.parent = parent;
         this.a = a;
-        l_nome.setText(a.getNome());
-        l_cognome.setText(a.getCognome());
-        orario.setTimeInMillis(a.getOrario().getTime());
+        l_nome.setText(a.getCliente().getNome());
+        l_cognome.setText(a.getCliente().getCognome());
+        orario.setTimeInMillis(a.getOrarioInizio().getTime());
         l_orario.setText(orario.get(Calendar.HOUR_OF_DAY) + ":" + orario.get(Calendar.MINUTE));
         l_note.setText(a.getNote());
         a.setPane(ap_root);

@@ -5,54 +5,64 @@ import it.centoreluca.util.CssHelper;
 import javafx.scene.layout.AnchorPane;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Appuntamento {
 
-    private String nome;
-    private String cognome;
+    private int id;
     private Timestamp orario;
+    private Cliente cliente;
+    private Personale personale;
+    private List<Servizio> servizi = new ArrayList<>();
     private String note;
     private Stato stato;
-    private List<Servizio> servizio;
-    private Personale personale;
 
     private AnchorPane ap;
+
     private final Database db = Database.getInstance();
     private final CssHelper css = CssHelper.getInstance();
 
-    public Appuntamento(String nome, String cognome, Timestamp orario, String note, Stato stato, List<Servizio> servizi, Personale personale) {
-        this.nome = nome;
-        this.cognome = cognome;
+    public Appuntamento() { }
+
+    public Appuntamento(int id, Timestamp orario, String note, Stato stato) {
+        this.id = id;
         this.orario = orario;
         this.note = note;
         this.stato = stato;
-        this.servizio = servizi;
-        this.personale = personale;
     }
 
-    public String getNome() {
-        return nome;
+    public int getId() {
+        return id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public Timestamp getOrario() {
+    public Timestamp getOrarioInizio() {
         return orario;
     }
 
-    public void setOrario(Timestamp orario) {
+    public void setOrarioInizio(Timestamp orario) {
         this.orario = orario;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Personale getPersonale() {
+        return personale;
+    }
+
+    public void setPersonale(Personale personale) {
+        this.personale = personale;
     }
 
     public String getNote() {
@@ -74,27 +84,11 @@ public class Appuntamento {
     }
 
     public List<Servizio> getServizi() {
-        return servizio;
+        return servizi;
     }
 
     public void setServizi(List<Servizio> servizio) {
-        this.servizio = servizio;
-    }
-
-    public Personale getIdDipendente() {
-        return personale;
-    }
-
-    public void setIdDipendente(Personale personale) {
-        this.personale = personale;
-    }
-
-    public double getDurata() {
-        double durata = 0;
-        for(Servizio serv: servizio) {
-            durata += serv.getDurata();
-        }
-        return durata;
+        this.servizi = servizio;
     }
 
     public AnchorPane getPane() {
@@ -104,6 +98,21 @@ public class Appuntamento {
     public void setPane(AnchorPane ap) {
         this.ap = ap;
         css.impostaStatoAppuntamento(ap, this.stato);
+    }
+
+    public int getDurata() {
+        int durata = 0;
+        for(Servizio serv: servizi) {
+            durata += serv.getDurata();
+        }
+        return durata;
+    }
+
+    public Calendar getOrarioFine() {
+        Calendar ora = Calendar.getInstance();
+        ora.setTimeInMillis(orario.getTime());
+        ora.add(Calendar.MINUTE, getDurata());
+        return ora;
     }
 
     /**

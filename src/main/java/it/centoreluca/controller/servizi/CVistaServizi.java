@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -49,7 +48,7 @@ public class CVistaServizi extends Controller {
                 if(ore <= 8) {
                     s.setDurata(s.getDurata() + ore*60);
                 } else {
-                    css.toError(tf_ore, new Tooltip("Massimo 8 ore"));
+                    css.toError(tf_ore,"Massimo 8 ore");
                     check = false;
                 }
             }
@@ -59,7 +58,7 @@ public class CVistaServizi extends Controller {
                 if(minuti <= 59) {
                     s.setDurata(s.getDurata() + minuti);
                 } else {
-                    css.toError(tf_minuti, new Tooltip("Massimo 59 minuti"));
+                    css.toError(tf_minuti,"Massimo 59 minuti");
                     check = false;
                 }
             }
@@ -77,7 +76,7 @@ public class CVistaServizi extends Controller {
                     l_registrazioneOk.setText("Servizio registrato con successo");
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
-                    reimpostaCampi(tf_nome, tf_ore, tf_minuti, ta_note);
+                    reimpostaCampi(true, true, tf_nome, tf_ore, tf_minuti, ta_note);
                 } else {
                     l_registrazioneOk.setText("Errore durante la registrazione");
                     css.toError(l_registrazioneOk, null);
@@ -93,7 +92,6 @@ public class CVistaServizi extends Controller {
 
     @FXML
     public void realtimeCheck(KeyEvent ke) {
-        System.err.println(tf_ricerca.getText().trim().length());
         if(ke.getSource().equals(tf_ricerca)) {
             if(tf_ricerca.getText().trim().length() >= 1) {
                 // Rimuovo tutti i servizi nel VBOX
@@ -124,6 +122,7 @@ public class CVistaServizi extends Controller {
                 }
             }
         } else {
+            reimpostaCampi(false, true, tf_nome, tf_ore, tf_minuti, ta_note);
             l_registrazioneOk.setVisible(false);
         }
     }

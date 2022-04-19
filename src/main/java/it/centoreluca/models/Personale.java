@@ -1,18 +1,27 @@
 package it.centoreluca.models;
 
 public class Personale {
-    String nome;
-    String cognome;
-    String username;
-    int id;
-    String note;
 
-    public Personale(String nome, String cognome, String username, int id, String note) {
+    private int id;
+    private String nome;
+    private String cognome;
+    private String username;
+    private String note;
+
+    public Personale(int id, String nome, String cognome, String username, String note) {
+        this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
-        this.id = id;
         this.note = note;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -39,14 +48,6 @@ public class Personale {
         this.username = username;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNote() {
         return note;
     }
@@ -54,4 +55,5 @@ public class Personale {
     public void setNote(String note) {
         this.note = note;
     }
+
 }

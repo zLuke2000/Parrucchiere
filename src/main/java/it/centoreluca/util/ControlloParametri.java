@@ -2,7 +2,6 @@ package it.centoreluca.util;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.control.Tooltip;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,7 +31,7 @@ public class ControlloParametri {
             cssHelper.toValid(tic);
             return true;
         } else {
-            cssHelper.toError(tic, new Tooltip("immettere da " + minChar + " a " + maxChar + " caratteri"));
+            cssHelper.toError(tic,"immettere da " + minChar + " a " + maxChar + " caratteri");
             return false;
         }
     }
@@ -44,7 +43,7 @@ public class ControlloParametri {
             cssHelper.toValid(tic);
             return true;
         } else {
-            cssHelper.toError(tic, new Tooltip("immettere da " + minChar + " a " + maxChar + " caratteri"));
+            cssHelper.toError(tic,"immettere da " + minChar + " a " + maxChar + " caratteri");
             return false;
         }
     }
@@ -56,7 +55,7 @@ public class ControlloParametri {
             cssHelper.toValid(tic);
             return true;
         } else {
-            cssHelper.toError(tic, new Tooltip("immettere da " + minChar + " a " + maxChar + " caratteri"));
+            cssHelper.toError(tic,"immettere da " + minChar + " a " + maxChar + " caratteri");
             return false;
         }
     }
@@ -73,9 +72,9 @@ public class ControlloParametri {
             return true;
         } else {
             if(minChar == maxChar) {
-                cssHelper.toError(tic, new Tooltip("immettere " + minChar + " numeri"));
+                cssHelper.toError(tic,"immettere " + minChar + " numeri");
             } else {
-                cssHelper.toError(tic, new Tooltip("immettere da " + minChar + " a " + maxChar +" numeri"));
+                cssHelper.toError(tic,"immettere da " + minChar + " a " + maxChar +" numeri");
             }
             return  false;
         }
@@ -86,13 +85,12 @@ public class ControlloParametri {
         try {
             int oraTemp = Integer.parseInt(ora.getText().trim());
             if(oraTemp < 24) {
-                cssHelper.toValid(ora);
                 return true;
             } else {
-                cssHelper.toError(ora, new Tooltip("L'ora deve essere comprese tra 0 e 23"));
+                cssHelper.toError(ora,"L'ora deve essere comprese tra 0 e 23");
             }
         } catch (NumberFormatException nfe) {
-            cssHelper.toError(ora, new Tooltip("Immettere solo numeri"));
+            cssHelper.toError(ora,"Immettere solo numeri");
         }
         return false;
     }
@@ -102,13 +100,12 @@ public class ControlloParametri {
         try {
             int minutoTemp = Integer.parseInt(minuto.getText().trim());
             if(minutoTemp < 60) {
-                cssHelper.toValid(minuto);
                 return true;
             } else {
-                cssHelper.toError(minuto, new Tooltip("L'ora deve essere comprese tra 0 e 59"));
+                cssHelper.toError(minuto,"L'ora deve essere comprese tra 0 e 59");
             }
         } catch (NumberFormatException nfe) {
-            cssHelper.toError(minuto, new Tooltip("Immettere solo numeri"));
+            cssHelper.toError(minuto,"Immettere solo numeri");
         }
         return false;
     }
@@ -131,15 +128,17 @@ public class ControlloParametri {
 
     public Calendar data(TextField giorno, TextField mese, TextField anno) {
         if(numeri(giorno, 1, 2) & (numeri(mese, 1, 2)) & (numeri(anno, 4, 4))) {
+            System.out.println(giorno.getText() + "/" + mese.getText() + "/" + anno.getText());
+            System.out.println(Integer.parseInt(giorno.getText().trim()) + "/" + Integer.parseInt(mese.getText().trim()) + "/" + Integer.parseInt(anno.getText().trim()));
             Calendar data = new GregorianCalendar(Integer.parseInt(anno.getText().trim()), Integer.parseInt(mese.getText().trim()) - 1, Integer.parseInt(giorno.getText().trim()));
             data.setLenient(false);
             try {
                 data.getTime();
                 return data;
             } catch (Exception e) {
-                cssHelper.toError(giorno, new Tooltip("Data non valida"));
-                cssHelper.toError(mese, new Tooltip("Data non valida"));
-                cssHelper.toError(anno, new Tooltip("Data non valida"));
+                cssHelper.toError(giorno,"Data non valida");
+                cssHelper.toError(mese,"Data non valida");
+                cssHelper.toError(anno,"Data non valida");
             }
         }
         return null;
@@ -147,7 +146,7 @@ public class ControlloParametri {
 
     public boolean email(TextField email) {
         if(email.getText().trim().length() <= 0) {
-            cssHelper.toError(email, new Tooltip("Inserire email"));
+            cssHelper.toError(email,"Inserire email");
             return false;
         }  else {
             rPattern = Pattern.compile("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$");
@@ -156,7 +155,7 @@ public class ControlloParametri {
                 cssHelper.toValid(email);
                 return true;
             } else {
-                cssHelper.toError(email, new Tooltip("Email non valida"));
+                cssHelper.toError(email,"Email non valida");
                 return false;
             }
         }
