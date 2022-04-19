@@ -42,20 +42,20 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_numeroCellulare" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="191.0" />
+      <TextField fx:id="tf_telefonoCellulare" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="191.0" />
       <Label text="Numero fisso:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="236.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_numeroFisso" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="232.0" />
+      <TextField fx:id="tf_telefonoFisso" onKeyTyped="#realtimeCheck" promptText="Inserire numero" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="232.0" />
       <Label text="E-mail:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="281.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Separator AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="172.0" />
-      <TextField fx:id="tf_eMail" onKeyTyped="#realtimeCheck" promptText="Inserire e-mail" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="273.0" />
+      <TextField fx:id="tf_email" onKeyTyped="#realtimeCheck" promptText="Inserire e-mail" styleClass="default-text-field" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="273.0" />
       <HBox spacing="8.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="131.0">
          <TextField fx:id="tf_dataG" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="GG" styleClass="default-text-field" />
          <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="-" />

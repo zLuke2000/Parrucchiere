@@ -5,8 +5,8 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-<AnchorPane fx:id="ap_root" prefHeight="120.0" prefWidth="250.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.calendario.giornaliero.CAppuntamentoDinamico">
-    <HBox AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="8.0">
+<AnchorPane fx:id="ap_root" prefHeight="48.0" prefWidth="400.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.calendario.giornaliero.CAppuntamentoDinamico">
+    <HBox spacing="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="2.0">
         <Label fx:id="l_nome" text="template">
           <font>
               <Font name="System Bold" size="14.0" />
@@ -18,16 +18,12 @@
           </font>
         </Label>
     </HBox>
-    <Label fx:id="l_orario" text="template" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="30.0">
-      <font>
-         <Font size="14.0" />
-      </font></Label>
-    <Label fx:id="l_note" alignment="TOP_LEFT" text="template" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="58.0" />
-    <HBox spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0">
+    <HBox alignment="TOP_RIGHT" spacing="4.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
         <FontIcon fx:id="fi_annulla" iconLiteral="mdi2t-trash-can-outline" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
         <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
         <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="completa-appuntamento" />
     </HBox>
+   <Label fx:id="l_colore" text="template" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="26.0" />
    <stylesheets>
       <URL value="@../../../style/style.css" />
       <URL value="@../../../style/fragment.css" />

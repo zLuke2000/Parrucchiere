@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import java.net.URL?>
+<AnchorPane fx:id="ap_root" prefHeight="96.0" prefWidth="400.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.calendario.giornaliero.CAppuntamentoDinamico">
+    <HBox spacing="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="2.0">
+        <Label fx:id="l_nome" text="template">
+          <font>
+              <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label fx:id="l_cognome" text="template">
+          <font>
+              <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+    </HBox>
+    <HBox alignment="TOP_RIGHT" spacing="4.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
+        <FontIcon fx:id="fi_annulla" iconLiteral="mdi2t-trash-can-outline" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
+        <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
+        <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="completa-appuntamento" />
+    </HBox>
+    <VBox fx:id="vb_altro" spacing="4.0" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="26.0">
+        <Label fx:id="l_colore" alignment="TOP_LEFT" text="template" />
+        <Label fx:id="l_note" alignment="TOP_LEFT" text="template" wrapText="true"/>
+    </VBox>
+   <stylesheets>
+      <URL value="@../../../style/style.css" />
+      <URL value="@../../../style/fragment.css" />
+   </stylesheets>
+</AnchorPane>

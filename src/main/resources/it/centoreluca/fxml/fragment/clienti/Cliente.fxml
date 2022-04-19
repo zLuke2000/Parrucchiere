@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="100.0" prefWidth="1280.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.clienti.CCliente">
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="99.0" prefWidth="1280.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.clienti.CCliente">
     <HBox spacing="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="10.0">
         <Label fx:id="l_cognome" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" text="template">
             <font>
@@ -19,11 +19,11 @@
             </font>
         </Label>
     </HBox>
-    <StackPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="8.0">
+    <StackPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="8.0">
         <Label fx:id="l_note" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" wrapText="true" />
         <TextArea fx:id="ta_note" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" />
     </StackPane>
-    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="538.0" AnchorPane.topAnchor="0.0">
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="571.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,8 +63,7 @@
     </GridPane>
     <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0">
         <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="Colore:" />
-        <TextField fx:id="tf_colore" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#realtimeCheck" prefWidth="200.0" styleClass="default-text-field" />
-        <FontIcon fx:id="fi_salvataggio" iconColor="GREEN" iconLiteral="mdi2c-check" iconSize="24" visible="false" />
+        <TextField fx:id="tf_colore" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#coloreRealtime" prefWidth="200.0" styleClass="default-text-field" />
     </HBox>
    <Button contentDisplay="TOP" onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="29.0">
       <graphic>
@@ -79,10 +78,16 @@
            <FontIcon iconLiteral="mdi2t-trash-can-outline" iconSize="25" styleClass="icona-rossa" />
       </graphic>
    </Button>
+   <Button contentDisplay="TOP" onAction="#preferiti" styleClass="default-button" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="29.0">
+      <graphic>
+         <FontIcon iconLiteral="mdi2s-star-outline" iconSize="25" styleClass="icona-gialla" />
+      </graphic>
+   </Button>
     <HBox spacing="8.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="10.0">
-        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Data di nascita:"/>
-        <Label fx:id="l_dataNascita" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template"/>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Data di nascita:" />
+        <Label fx:id="l_dataNascita" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" />
     </HBox>
+   <HBox fx:id="hb_serviziPreferiti" spacing="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="36.0" />
    <stylesheets>
       <URL value="@../../../style/style.css" />
       <URL value="@../../../style/fragment.css" />

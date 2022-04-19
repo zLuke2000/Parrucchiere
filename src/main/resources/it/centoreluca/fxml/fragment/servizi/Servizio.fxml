@@ -6,13 +6,15 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="65.0" prefWidth="1280.0" styleClass="opaco-20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.servizi.CServizio">
-    <Label fx:id="l_note" alignment="TOP_LEFT" prefWidth="400.0" text="template" wrapText="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="8.0" />
-   <Button onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="16.0">
+   <Button onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="12.0">
       <graphic>
-         <FontIcon iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-giallo" />
+          <StackPane>
+              <FontIcon fx:id="fi_edit" iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-giallo"/>
+              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-giallo" visible="false"/>
+          </StackPane>
       </graphic>
    </Button>
-   <Button onMouseClicked="#elimina" styleClass="default-button" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+   <Button onMouseClicked="#elimina" styleClass="default-button" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="12.0">
       <graphic>
            <FontIcon iconLiteral="mdi2t-trash-can-outline" iconSize="25" styleClass="icona-rossa" />
       </graphic>
@@ -23,6 +25,10 @@
              <Font name="System Bold" size="14.0" />
          </font>
      </Label>
+    <StackPane prefWidth="400.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="8.0">
+        <TextArea fx:id="ta_note" visible="false"/>
+        <Label fx:id="l_note" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" wrapText="true"/>
+    </StackPane>
    <stylesheets>
       <URL value="@../../../style/style.css" />
       <URL value="@../../../style/icone.css" />
