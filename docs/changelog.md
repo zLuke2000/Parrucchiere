@@ -1,10 +1,10 @@
 # Changelog
-All notable changes to this project will be documented in this file.
+Tutti i cambiamneti dell'applicazione dalla sua pubblicazione saranno riportati in questo file
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+Questo formato è basato su [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [1.0.0] - 2022-04-22
-### Added
+### Aggiunte
 - Funzionalità di base registrazione e visualizzazione personale
 - Funzionalità di base registrazione e visualizzazione cliente
 - Funzionalità di base registrazione e visualizzazione servizio
