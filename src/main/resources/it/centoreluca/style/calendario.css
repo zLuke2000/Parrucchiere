@@ -14,3 +14,11 @@
     -fx-background-color: #81c784;
     -fx-background-radius: 4;
 }
+
+.compleanno-icon {
+    -fx-icon-color: #ba160c;
+}
+
+.compleanno-text {
+	-fx-text-fill: #ba160c;
+}

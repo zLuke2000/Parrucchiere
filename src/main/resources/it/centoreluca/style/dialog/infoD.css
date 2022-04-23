@@ -4,12 +4,6 @@
 	-fx-background-radius: 20;
 }
 
-/* DEFAULT BG */
-.default-background {
-	-fx-background-color: #85C1E9;
-	-fx-background-radius: 20;
-}
-
 /* BUTTON */
 .button {
 	-fx-background-color: #AED6F1;
