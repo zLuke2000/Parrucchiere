@@ -2,10 +2,7 @@ package it.centoreluca.util;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
-import it.centoreluca.controller.calendario.giornaliero.CColonnaPersonale;
-import it.centoreluca.controller.clienti.CCliente;
-import it.centoreluca.models.Cliente;
-import it.centoreluca.models.Personale;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,9 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class DialogHelper {
@@ -25,6 +22,9 @@ public class DialogHelper {
     private Double xOffset;
     private Double yOffset;
     private Stage stage;
+
+    private final FadeTransition ft = new FadeTransition(Duration.millis(500));
+
     private static DialogHelper instance = null;
 
     private DialogHelper() {}
@@ -36,8 +36,8 @@ public class DialogHelper {
         return instance;
     }
 
-    public Controller newDialog(String fxmlName, String title, Controller parentController, Calendar data, Personale personale, Cliente cliente) {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
+    public Controller newDialog(String fxmlName, String title, Controller parentController) {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/dialog/" + fxmlName + ".fxml"));
         try {
             parent = fxmlLoader.load();
         } catch (IOException e) {
@@ -46,12 +46,8 @@ public class DialogHelper {
         Scene scene = new Scene(parent);
         stage = new Stage();
         Controller c = fxmlLoader.getController();
-        c.impostaParametri(stage, parentController);
-        if(parentController instanceof CColonnaPersonale) {
-            c.impostaUlterioriParametri(data, personale);
-        } else if(parentController instanceof CCliente) {
-            c.impostaCliente(cliente);
-        }
+        c.setStage(stage);
+        c.setParent(parentController);
 
         stage.getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("icon/hairdresser.png"))));
         stage.setTitle(title);
@@ -69,9 +65,11 @@ public class DialogHelper {
             stage.setX(mouseEvent.getScreenX() - xOffset);
             stage.setY(mouseEvent.getScreenY() - yOffset);
         });
-
-        stage.showAndWait();
         return c;
+    }
+
+    public void display() {
+        stage.showAndWait();
     }
 
 }

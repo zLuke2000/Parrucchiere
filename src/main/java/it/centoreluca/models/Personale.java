@@ -56,4 +56,8 @@ public class Personale {
         this.note = note;
     }
 
+    public String[] backupRow() {
+        return new String[]{String.valueOf(id), nome, cognome, username, note};
+    }
+
 }

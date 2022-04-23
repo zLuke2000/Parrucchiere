@@ -1,5 +1,6 @@
 package it.centoreluca;
 
+import it.centoreluca.database.ExcelHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,11 +16,12 @@ import java.util.Objects;
 
 public class App extends Application {
 
+    private static final ExcelHelper eh = ExcelHelper.getInstance();
+
     public static Stage stage;
     private Double xOffset;
     private Double yOffset;
     private boolean drag;
-    private final Double bordo = 128.0;
 
     @Override
     public void start(Stage stage) {
@@ -34,7 +36,8 @@ public class App extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         scene.setFill(Color.TRANSPARENT);
-        stage.setTitle("Ricci & Capricci");
+        stage.setTitle("Parrucchiere");
+        double bordo = 128.0;
         stage.setWidth(width - bordo);
         stage.setHeight(height - bordo);
         stage.centerOnScreen();
@@ -65,6 +68,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        eh.backupXLSX();
         launch(args);
     }
 }

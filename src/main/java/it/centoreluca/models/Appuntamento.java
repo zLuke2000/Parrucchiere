@@ -115,6 +115,10 @@ public class Appuntamento {
         return ora;
     }
 
+    public String[] backupRow() {
+        return new String[]{String.valueOf(id), orario.toString(), String.valueOf(cliente.getId()), String.valueOf(personale.getId()), stato.toString(), note};
+    }
+
     /**
      * Enumeratore per la gestione dello stato dell'appuntamento
      */

@@ -6,9 +6,11 @@ import it.centoreluca.enumerator.Mesi;
 import it.centoreluca.models.*;
 import it.centoreluca.util.ControlloParametri;
 import it.centoreluca.util.CssHelper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CNuovoAppG extends Controller {
+public class CNuovoApp extends Controller {
 
     // Titolo
     @FXML private Label l_info;
@@ -29,6 +31,10 @@ public class CNuovoAppG extends Controller {
     @FXML private Label l_nome;
     @FXML private Label l_cognome;
     @FXML private Label l_note;
+
+    // Sezione personale (solo per NuovoAppS)
+    @FXML private AnchorPane ap_personale;
+    @FXML private ComboBox<String> cb_selezionaPersonale;
 
     // Sezione servizi
     @FXML private VBox vb_servizi;
@@ -43,6 +49,7 @@ public class CNuovoAppG extends Controller {
     private final ControlloParametri cp = ControlloParametri.getInstance();
     private final List<Cliente> listaClienti = db.leggiClienti("**").getList(Cliente.class);
     private final List<Servizio> listaServizi = db.leggiServizi("**").getList(Servizio.class);
+    private final List<Personale> listaPersonale = db.leggiPersonale().getList(Personale.class);
     private final HashMap<Integer, ToggleButton> preferitiTG = new HashMap<>();
 
     private Stage stage;
@@ -53,6 +60,7 @@ public class CNuovoAppG extends Controller {
 
     @FXML
     private void initialize() {
+        // Azzero i campi template
         l_nome.setText("");
         l_cognome.setText("");
         l_note.setText("");
@@ -66,19 +74,41 @@ public class CNuovoAppG extends Controller {
             vb_servizi.getChildren().add(tg);
             preferitiTG.put(s.getId(), tg);
         }
+
+        // Carico il personale (solo per NuovoAppS)
+        for(Personale p: listaPersonale) {
+            cb_selezionaPersonale.getItems().addAll(cp.toTitleCase(p.getUsername()));
+        }
     }
 
     @Override
-    public void impostaParametri(Stage stage, Controller parent) {
+    public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public void setParent(Controller parent) {
         this.parent = parent;
     }
 
-    @Override
-    public void impostaUlterioriParametri(Calendar data, Personale personale) {
+    public void setData(Calendar data) {
         this.data = data;
-        this.personale = personale;
-        l_info.setText(cp.toTitleCase(personale.getUsername()) + " - " + data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
+        aggiornaTitolo();
+    }
+
+    public void setPersonale(Personale p) {
+        this.personale = p;
+        ap_personale.setVisible(false);
+    }
+
+    private void aggiornaTitolo() {
+        if(data != null) {
+            if (personale != null) {
+                l_info.setText(cp.toTitleCase(personale.getUsername()) + " - " + data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
+            } else {
+                l_info.setText(data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
+            }
+        }
     }
 
     @FXML
@@ -100,16 +130,26 @@ public class CNuovoAppG extends Controller {
     }
 
     @FXML
-    private void ricercaRealtime() {
-        for (Cliente c : listaClienti) {
-            if (c.toString().equals(cb_selezionaCliente.getValue())) {
-                clienteSelezionato = c;
-                l_nome.setText(clienteSelezionato.getNome());
-                l_cognome.setText(clienteSelezionato.getCognome());
-                l_note.setText(clienteSelezionato.getNote());
-                List<Integer> serviziCliente = db.leggiIdServPref(c.getId()).getList(Integer.class);
-                preferitiTG.forEach((i, tg) -> tg.setSelected(serviziCliente.contains(i)));
-                break;
+    private void ricercaRealtime(ActionEvent ae) {
+        if(ae.getSource().equals(cb_selezionaCliente)) {
+            for (Cliente c : listaClienti) {
+                if (c.toString().equals(cb_selezionaCliente.getValue())) {
+                    clienteSelezionato = c;
+                    l_nome.setText(clienteSelezionato.getNome());
+                    l_cognome.setText(clienteSelezionato.getCognome());
+                    l_note.setText(clienteSelezionato.getNote());
+                    List<Integer> serviziCliente = db.leggiIdServPref(c.getId()).getList(Integer.class);
+                    preferitiTG.forEach((i, tg) -> tg.setSelected(serviziCliente.contains(i)));
+                    break;
+                }
+            }
+        } else if (ae.getSource().equals(cb_selezionaPersonale)) {
+            for (Personale p : listaPersonale) {
+                if (cp.toTitleCase(p.getUsername()).equals(cb_selezionaPersonale.getValue())) {
+                    this.personale = p;
+                    aggiornaTitolo();
+                    break;
+                }
             }
         }
     }
@@ -143,47 +183,61 @@ public class CNuovoAppG extends Controller {
 
     @FXML
     private void conferma() {
+
         Appuntamento a = new Appuntamento();
+        boolean controllo = true;
 
-        if(clienteSelezionato != null) {
+        if(clienteSelezionato == null) {
+            css.toError(tf_cercaCliente,"Selezionare un cliente");
+            controllo = false;
+        } else {
             a.setCliente(clienteSelezionato);
-            a.setPersonale(personale);
+        }
 
-            preferitiTG.forEach((i, tg) -> {
-                if(tg.isSelected()) {
-                    for(Servizio s: listaServizi) {
-                        if(s.getId() == i) {
-                            a.getServizi().add(s);
-                            break;
-                        }
+        if(personale == null) {
+            css.toError(cb_selezionaPersonale,"Selezionare il personale");
+            controllo = false;
+        } else {
+            a.setPersonale(personale);
+        }
+        preferitiTG.forEach((i, tg) -> {
+            if(tg.isSelected()) {
+                for(Servizio s: listaServizi) {
+                    if(s.getId() == i) {
+                        a.getServizi().add(s);
+                        break;
                     }
                 }
-            });
-
-            if(cp.ora(tf_oraInizio) & cp.minuto(tf_minutoInizio)) {
-                data.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tf_oraInizio.getText().trim()));
-                data.set(Calendar.MINUTE, Integer.parseInt(tf_minutoInizio.getText().trim()));
-                data.set(Calendar.SECOND, 0);
-                data.set(Calendar.MILLISECOND, 0);
-                a.setOrarioInizio(new Timestamp(data.getTimeInMillis()));
             }
+        });
 
-            if(cp.testoSempliceConNumeri(ta_note, 0, 512)) {
-                a.setNote(ta_note.getText().trim());
-            }
+        if(cp.ora(tf_oraInizio) & cp.minuto(tf_minutoInizio)) {
+            data.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tf_oraInizio.getText().trim()));
+            data.set(Calendar.MINUTE, Integer.parseInt(tf_minutoInizio.getText().trim()));
+            data.set(Calendar.SECOND, 0);
+            data.set(Calendar.MILLISECOND, 0);
+            a.setOrarioInizio(new Timestamp(data.getTimeInMillis()));
+        } else {
+            controllo = false;
+        }
 
+        if(cp.testoSempliceConNumeri(ta_note, 0, 512)) {
+            a.setNote(ta_note.getText().trim());
+        } else {
+            controllo = false;
+        }
+
+        if(controllo) {
             Result res = db.registraAppuntamento(a);
-            if(res.getResult()) {
-                parent.callback(true);
+            if (res.getResult()) {
                 chiudi();
             }
-        } else {
-            css.toError(tf_cercaCliente,"Selezionare un cliente");
         }
     }
 
     @FXML
     private void chiudi() {
+        parent.caricaAppuntamenti();
         stage.close();
     }
 

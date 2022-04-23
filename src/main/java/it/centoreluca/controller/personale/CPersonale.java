@@ -1,11 +1,15 @@
 package it.centoreluca.controller.personale;
 
 import it.centoreluca.controller.Controller;
+import it.centoreluca.controller.dialog.CDialog;
 import it.centoreluca.database.Database;
 import it.centoreluca.models.Personale;
+import it.centoreluca.models.Result;
 import it.centoreluca.util.ControlloParametri;
+import it.centoreluca.util.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -31,6 +35,7 @@ public class CPersonale extends Controller {
     @FXML private FontIcon fi_save;
 
     private final ControlloParametri cp = ControlloParametri.getInstance();
+    private final DialogHelper dh = DialogHelper.getInstance();
     private final Database db = Database.getInstance();
     private CVistaPersonale parent;
     private Personale p;
@@ -87,8 +92,25 @@ public class CPersonale extends Controller {
     @FXML
     private void elimina(MouseEvent me) {
         if(me.getClickCount() > 1) {
-            if(db.rimuoviPersonale(p).getResult()) {
+            Result res = db.rimuoviPersonale(p);
+            if(res.getResult()) {
                 rimuoviNodo(parent.vb_container, n);
+            } else if(res.getError().equals(Result.Error.TUPLA_UTILIZZATA)) {
+                // ALERT
+                CDialog alert = (CDialog) dh.newDialog("Generico", "ATTENZIONE", this);
+                alert.impostaTipo(CDialog.Tipo.ATTENZIONE);
+                alert.impostaTitolo("Rimozione personale");
+                alert.impostaDescrizione("Il personale che sta per essere rimosso \u00E8 associato ad appuntamenti\n\nL'operazione non potr\u00E0 essere annullata, procedere con la rimozione?");
+                alert.rinominaPulsanteDefault("NO");
+                Button b = new Button("SI");
+                b.setOnAction(event -> {
+                    if(db.rimuoviAppuntamentiAssociati(p).getResult()) {
+                        rimuoviNodo(parent.vb_container, n);
+                        alert.chiudi();
+                    }
+                });
+                alert.aggiungiPulsante(b);
+                dh.display();
             }
         }
     }

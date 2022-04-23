@@ -2,7 +2,7 @@ package it.centoreluca.controller.calendario.settimanale;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
-import it.centoreluca.controller.dialog.CNuovoAppS;
+import it.centoreluca.controller.dialog.CNuovoApp;
 import it.centoreluca.database.Database;
 import it.centoreluca.enumerator.Giorni;
 import it.centoreluca.models.Appuntamento;
@@ -39,6 +39,7 @@ public class CColonna extends Controller {
         caricaAppuntamenti();
     }
 
+    @Override
     public void caricaAppuntamenti() {
         vb_container.getChildren().clear();
         Result rs = db.leggiAppuntamenti(data, -1);
@@ -60,7 +61,8 @@ public class CColonna extends Controller {
     }
 
     public void nuovoAppuntamento() {
-        CNuovoAppS controller = (CNuovoAppS) dh.newDialog("fxml/fragment/dialog/NuovoAppuntamento", "Nuovo Appuntamento", this, data, null, null);
-        controller.impostaData(data);
+        CNuovoApp controller = (CNuovoApp) dh.newDialog("NuovoApp", "Nuovo Appuntamento", this);
+        controller.setData(data);
+        dh.display();
     }
 }

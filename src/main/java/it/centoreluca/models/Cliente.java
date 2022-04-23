@@ -1,7 +1,5 @@
 package it.centoreluca.models;
 
-import javafx.scene.layout.AnchorPane;
-
 import java.sql.Date;
 
 public class Cliente {
@@ -15,8 +13,6 @@ public class Cliente {
     private String email;
     private String colore;
     private String note;
-
-    private AnchorPane ap;
 
     public Cliente(String nome, String cognome) {
         this.nome = nome;
@@ -123,4 +119,7 @@ public class Cliente {
         return nome + ' ' + cognome;
     }
 
+    public String[] backupRow() {
+        return new String[]{String.valueOf(id), nome, cognome, dataNascita.toString(), numeroCellulare, numeroFisso, email, colore, note};
+    }
 }

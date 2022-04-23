@@ -75,4 +75,7 @@ public class Servizio {
         return testo;
     }
 
+    public String[] backupRow() {
+        return new String[]{String.valueOf(id), nome, String.valueOf(durata), note};
+    }
 }

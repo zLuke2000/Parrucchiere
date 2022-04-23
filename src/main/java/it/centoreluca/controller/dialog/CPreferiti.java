@@ -37,13 +37,17 @@ public class CPreferiti extends Controller {
             preferitiTG.put(tg, s);
         }
     }
+
     @Override
-    public void impostaParametri(Stage stage, Controller parent) {
+    public void setStage(Stage stage) {
         this.stage = stage;
-        this.parent = (CCliente) parent;
     }
 
     @Override
+    public void setParent(Controller parent) {
+        this.parent = (CCliente) parent;
+    }
+
     public void impostaCliente(Cliente c) {
         this.c = c;
         l_titolo.setText("Servizi preferiti - " + c.getNome());

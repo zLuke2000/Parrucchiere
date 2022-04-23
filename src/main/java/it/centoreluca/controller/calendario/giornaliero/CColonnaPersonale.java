@@ -2,6 +2,7 @@ package it.centoreluca.controller.calendario.giornaliero;
 
 import it.centoreluca.App;
 import it.centoreluca.controller.Controller;
+import it.centoreluca.controller.dialog.CNuovoApp;
 import it.centoreluca.database.Database;
 import it.centoreluca.models.Appuntamento;
 import it.centoreluca.models.Personale;
@@ -41,6 +42,7 @@ public class CColonnaPersonale extends Controller {
         caricaAppuntamenti();
     }
 
+    @Override
     public void caricaAppuntamenti() {
         rimuoviAppuntamenti();
         Result rs = db.leggiAppuntamenti(data, pers.getId());
@@ -94,13 +96,10 @@ public class CColonnaPersonale extends Controller {
     }
 
     public void nuovoAppuntamento() {
-        dh.newDialog("fxml/dialog/NuovoAppG", "Nuovo Appuntamento", this, data, pers, null);
+        CNuovoApp controller = (CNuovoApp) dh.newDialog("NuovoApp", "Nuovo Appuntamento", this);
+        controller.setData(data);
+        controller.setPersonale(pers);
+        dh.display();
     }
 
-    @Override
-    public void callback(boolean status) {
-        if(status) {
-            caricaAppuntamenti();
-        }
-    }
 }

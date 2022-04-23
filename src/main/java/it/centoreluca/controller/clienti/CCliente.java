@@ -1,6 +1,8 @@
 package it.centoreluca.controller.clienti;
 
 import it.centoreluca.controller.Controller;
+import it.centoreluca.controller.dialog.CDialog;
+import it.centoreluca.controller.dialog.CPreferiti;
 import it.centoreluca.database.Database;
 import it.centoreluca.enumerator.Mesi;
 import it.centoreluca.models.Cliente;
@@ -11,6 +13,7 @@ import it.centoreluca.util.CssHelper;
 import it.centoreluca.util.DialogHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -111,7 +114,8 @@ public class CCliente extends Controller {
 
     @FXML
     private void preferiti() {
-        dh.newDialog("fxml/dialog/Preferiti", "Gestione preferiti", this, null, null, c);
+        CPreferiti controller = (CPreferiti) dh.newDialog("Preferiti", "Gestione preferiti", this);
+        dh.display();
     }
 
     /**
@@ -190,8 +194,27 @@ public class CCliente extends Controller {
 
     @FXML
     private void elimina(MouseEvent me) {
-        if(me.getClickCount() > 1 && db.rimuoviCliente(c).getResult()) {
-            rimuoviNodo(parent.vb_container, n);
+        if(me.getClickCount() > 1) {
+            Result res = db.rimuoviCliente(c);
+            if(res.getResult()) {
+                rimuoviNodo(parent.vb_container, n);
+            } else if(res.getError().equals(Result.Error.TUPLA_UTILIZZATA)) {
+                // ALERT
+                CDialog alert = (CDialog) dh.newDialog("Generico", "ATTENZIONE", this);
+                alert.impostaTipo(CDialog.Tipo.ATTENZIONE);
+                alert.impostaTitolo("Rimozione cliente");
+                alert.impostaDescrizione("Il cliente che sta per essere rimosso \u00E8 associato ad appuntamenti\n\nL'operazione non potr\u00E0 essere annullata, procedere con la rimozione?");
+                alert.rinominaPulsanteDefault("NO");
+                Button b = new Button("SI");
+                b.setOnAction(event -> {
+                    if(db.rimuoviClientiAssociati(c).getResult()) {
+                        rimuoviNodo(parent.vb_container, n);
+                        alert.chiudi();
+                    }
+                });
+                alert.aggiungiPulsante(b);
+                dh.display();
+            }
         }
     }
 
