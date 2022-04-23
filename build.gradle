@@ -2,17 +2,19 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.11'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'edu.sc.seis.launch4j' version '2.5.1'
 }
 
 group = 'it.centoreluca'
-version = '1.0.0'
+version = '1.0'
 
 repositories {
     mavenCentral()
 }
 
 application {
-    mainClass.set("it.centoreluca.App")
+    mainClass.set("it.centoreluca.Main")
 }
 
 javafx {
@@ -26,10 +28,21 @@ dependencies {
     /* ESPORTAZIONE EXCEL */
     implementation 'org.apache.poi:poi:5.2.0'
     implementation 'org.apache.poi:poi-ooxml:5.2.0'
+    shadow 'org.apache.poi:poi:5.2.0'
+    shadow 'org.apache.poi:poi-ooxml:5.2.0'
     /* LOGGING */
     implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
+    shadow 'org.apache.logging.log4j:log4j-core:2.17.2'
     /* ICONE */
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.3.1'
+}
 
+launch4j {
+    headerType = 'console'
+    companyName = 'centore luca'
+    copyright = 'centore luca'
+    version = '1.0.0.1'
+    icon = "${projectDir}/src/main/resources/it/centoreluca/icon/hairdresser.ico"
+    jarTask = project.tasks.shadowJar
 }
