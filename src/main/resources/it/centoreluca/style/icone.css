@@ -8,3 +8,9 @@
 .icona-verde:hover {
     -fx-icon-color: green;
 }
+.icona-blu:hover {
+    -fx-icon-color: royalblue;
+}
+.icona-bianca:hover {
+    -fx-icon-color: white;
+}

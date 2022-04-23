@@ -1,24 +1,8 @@
-.default-button {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
+.nuovo-app-button {
+    -fx-background-color: #a7c0cd;
     -fx-background-radius: 4;
 }
-.default-button: hover {
-    -fx-background-color: rgba(255, 255, 255, 0.6);
+.nuovo-app-button: hover {
+    -fx-background-color: #769db1;
     -fx-background-radius: 4;
-}
-.green-button {
-    -fx-background-color: #519657;
-    -fx-background-radius: 4;
-}
-.green-button: hover {
-    -fx-background-color: #81c784;
-    -fx-background-radius: 4;
-}
-
-.compleanno-icon {
-    -fx-icon-color: #ba160c;
-}
-
-.compleanno-text {
-	-fx-text-fill: #ba160c;
 }

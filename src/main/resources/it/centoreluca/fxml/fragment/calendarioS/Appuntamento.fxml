@@ -25,11 +25,12 @@
     <Label fx:id="l_note" alignment="TOP_LEFT" text="template" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="58.0" />
     <HBox spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0">
         <FontIcon fx:id="fi_annulla" iconLiteral="mdi2t-trash-can-outline" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-rossa" />
-        <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" />
-        <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-rossa" />
+        <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-bianca" />
+        <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-verde" />
     </HBox>
    <stylesheets>
-      <URL value="@../../../style/style.css" />
+       <URL value="@../../../style/style.css" />
+       <URL value="@../../../style/icone.css" />
       <URL value="@../../../style/fragment.css" />
    </stylesheets>
 </AnchorPane>

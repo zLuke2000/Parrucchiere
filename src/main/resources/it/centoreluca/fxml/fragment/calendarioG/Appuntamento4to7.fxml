@@ -19,13 +19,14 @@
         </Label>
     </HBox>
     <HBox alignment="TOP_RIGHT" spacing="4.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
-        <FontIcon fx:id="fi_annulla" iconLiteral="mdi2t-trash-can-outline" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
-        <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="annulla-appuntamento" />
-        <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="completa-appuntamento" />
+        <FontIcon fx:id="fi_annulla" iconLiteral="mdi2t-trash-can-outline" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-rossa" />
+        <FontIcon fx:id="fi_reimposta" iconLiteral="mdi2u-undo-variant" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-bianca" />
+        <FontIcon fx:id="fi_completa" iconLiteral="mdi2c-check" iconSize="24" onMouseClicked="#statoAppuntamento" styleClass="icona-verde" />
     </HBox>
    <Label fx:id="l_colore" text="template" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="26.0" />
    <stylesheets>
       <URL value="@../../../style/style.css" />
+       <URL value="@../../../style/icone.css" />
       <URL value="@../../../style/fragment.css" />
    </stylesheets>
 </AnchorPane>

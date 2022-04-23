@@ -18,15 +18,15 @@
             </font>
         </Label>
     </StackPane>
-   <Button onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="17.0">
+   <Button onAction="#modifica" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="17.0">
       <graphic>
           <StackPane>
               <FontIcon fx:id="fi_edit" iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-gialla" />
-              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-gialla" visible="false" />
+              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-blu" visible="false" />
           </StackPane>
       </graphic>
    </Button>
-   <Button onMouseClicked="#elimina" styleClass="default-button" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="17.0">
+   <Button onMouseClicked="#elimina" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="17.0">
       <graphic>
            <FontIcon iconLiteral="mdi2t-trash-can-outline" iconSize="25" styleClass="icona-rossa" />
       </graphic>

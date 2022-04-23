@@ -50,35 +50,35 @@
         </Label>
         <StackPane GridPane.columnIndex="1">
             <Label fx:id="l_telefonoCellulare" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_telefonoCellulare" styleClass="default-text-field" visible="false" />
+            <TextField fx:id="tf_telefonoCellulare" visible="false" />
         </StackPane>
         <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
             <Label fx:id="l_telefonoFisso" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_telefonoFisso" styleClass="default-text-field" visible="false" />
+            <TextField fx:id="tf_telefonoFisso" visible="false" />
         </StackPane>
         <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
             <Label fx:id="l_email" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_email" styleClass="default-text-field" visible="false" />
+            <TextField fx:id="tf_email" visible="false" />
         </StackPane>
     </GridPane>
     <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0">
         <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="Colore:" />
-        <TextField fx:id="tf_colore" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#coloreRealtime" prefWidth="200.0" styleClass="default-text-field" />
+        <TextField fx:id="tf_colore" maxWidth="-Infinity" minWidth="-Infinity" onKeyTyped="#coloreRealtime" prefWidth="200.0" />
     </HBox>
-   <Button contentDisplay="TOP" onAction="#modifica" styleClass="default-button" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="29.0">
+   <Button contentDisplay="TOP" onAction="#modifica" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="29.0">
       <graphic>
           <StackPane>
               <FontIcon fx:id="fi_edit" iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-gialla" />
-              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-gialla" visible="false" />
+              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-blu" visible="false" />
           </StackPane>
       </graphic>
    </Button>
-   <Button contentDisplay="TOP" onMouseClicked="#elimina" styleClass="default-button" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="29.0">
+   <Button contentDisplay="TOP" onMouseClicked="#elimina" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="29.0">
       <graphic>
            <FontIcon iconLiteral="mdi2t-trash-can-outline" iconSize="25" styleClass="icona-rossa" />
       </graphic>
    </Button>
-   <Button contentDisplay="TOP" onAction="#preferiti" styleClass="default-button" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="29.0">
+   <Button contentDisplay="TOP" onAction="#preferiti" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="29.0">
       <graphic>
          <FontIcon iconLiteral="mdi2s-star-outline" iconSize="25" styleClass="icona-gialla" />
       </graphic>
@@ -90,6 +90,6 @@
    <HBox fx:id="hb_serviziPreferiti" spacing="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="36.0" />
    <stylesheets>
       <URL value="@../../../style/style.css" />
-      <URL value="@../../../style/fragment.css" />
+      <URL value="@../../../style/icone.css" />
    </stylesheets>
 </AnchorPane>

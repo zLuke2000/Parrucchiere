@@ -99,15 +99,16 @@ public class CNuovoApp extends Controller {
     public void setPersonale(Personale p) {
         this.personale = p;
         ap_personale.setVisible(false);
+        aggiornaTitolo();
     }
 
     private void aggiornaTitolo() {
-        if(data != null) {
-            if (personale != null) {
-                l_info.setText(cp.toTitleCase(personale.getUsername()) + " - " + data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
-            } else {
-                l_info.setText(data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
-            }
+        if(personale != null && data != null) {
+            l_info.setText(cp.toTitleCase(personale.getUsername()) + " - " + data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
+        } else if(data != null) {
+            l_info.setText(data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)]);
+        } else if (personale != null) {
+            l_info.setText(cp.toTitleCase(personale.getUsername()));
         }
     }
 

@@ -7,11 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="400.0" prefWidth="300.0" styleClass="normal-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.dialog.CPreferiti">
-    <stylesheets>
-        <URL value="@../../style/style.css" />
-        <URL value="@../../style/fragment.css" />
-    </stylesheets>
+<AnchorPane prefHeight="400.0" prefWidth="300.0" styleClass="dialog-default-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.dialog.CPreferiti">
     <Label fx:id="l_titolo" alignment="CENTER" text="template" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
         <font>
           <Font name="System Bold" size="14.0" />
@@ -21,5 +17,10 @@
         <VBox fx:id="vb_servizi" spacing="4.0" />
     </ScrollPane>
     <Button onAction="#conferma" text="SALVA" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" />
-   <FontIcon iconLiteral="mdi2c-close-thick" iconSize="24" layoutX="10.0" layoutY="10.0" onMouseClicked="#chiudi" styleClass="icona-rossa" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0" />
+   <FontIcon iconLiteral="mdi2c-close-thick" iconSize="24" onMouseClicked="#chiudi" styleClass="icona-rossa" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="6.0" />
+   <stylesheets>
+      <URL value="@../../style/style.css" />
+      <URL value="@../../style/icone.css" />
+      <URL value="@../../style/dialog/dialog.css" />
+   </stylesheets>
 </AnchorPane>

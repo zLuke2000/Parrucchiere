@@ -3,12 +3,7 @@
     -fx-background-radius: 8;
 }
 
-.normal-background {
-    -fx-background-color: #a7c0cd;
-    -fx-background-radius: 8;
-}
-
-.transparent-background {
+.transparent {
     -fx-background-color: transparent;
 }
 
@@ -45,7 +40,7 @@
 }
 
 /* TEXT FIELD */
-.default-text-field {
+.text-field {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-background-radius: 4;
     -fx-text-fill: #323232;
@@ -53,7 +48,7 @@
 }
 
 /* TEXT AREA */
-.default-text-area {
+.text-area {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-background-radius: 4;
     -fx-control-inner-background: transparent;
@@ -61,7 +56,7 @@
     -fx-prompt-text-fill: #909090;
 }
 
-.default-text-area:focused {
+.text-area:focused {
     -fx-highlight-fill: transparent;
     -fx-background-insets: 0;
     -fx-background-color: rgba(255, 255, 255, 0.2);
@@ -71,12 +66,12 @@
 }
 
 /* BUTTON */
-.default-button {
-    -fx-background-color: rgba(255, 255, 255, 0.4);
+.button {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-background-radius: 4;
 }
 
-.default-button: hover {
+.button: hover {
     -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-background-radius: 4;
 }
@@ -101,4 +96,43 @@
 }
 .scroll-pane .scroll-bar:vertical .thumb {
     -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* COMBO BOX*/
+.combo-box-base {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-background-radius: 4;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 4;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #323232;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(66, 76, 82, 0.2);
+    -fx-background-radius: 4;
+    -fx-text-fill: #323232;
+}
+
+/* TOGGLE BUTTON */
+.tg-servizio {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 4;
+}
+
+.tg-servizio: selected {
+    -fx-background-color: rgba(66, 76, 82, 0.6);
+    -fx-background-radius: 4;
+}
+
+/* SEZIONE COMPLEANNO */
+.compleanno-icon {
+    -fx-icon-color: #ba160c;
+}
+.compleanno-text {
+	-fx-text-fill: #ba160c;
 }

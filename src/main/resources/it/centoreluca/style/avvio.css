@@ -6,6 +6,7 @@
     -fx-border-color: lightgrey transparent lightgrey lightgrey;
     -fx-border-radius: 8 0 0 8;
 }
+
 /* pulsante riduci ad icona */
 .riduci-a-icona {
 	-fx-background-color: transparent;
@@ -30,8 +31,12 @@
 	-fx-background-color: rgba(255, 0, 0, 0.6);
 	-fx-background-radius: 0 8 0 0;
 }
-/* pulsante seleziona menu */
+/* pulsante selezione menu */
 .pulsante-menu {
 	-fx-background-color: rgba(255, 255, 255, 0.2);
+	-fx-background-radius: 8;
+}
+.pulsante-menu: hover {
+	-fx-background-color: rgba(255, 255, 255, 0.4);
 	-fx-background-radius: 8;
 }

@@ -1,4 +1,4 @@
-/* MATERIAL DESIGN 400*/
+/* MATERIAL DESIGN 400 - FRAGMENT APPUNTAMENTO*/
 .info-background {
     -fx-background-color: rgba(66, 165, 245, 0.5);
     -fx-background-radius: 8;
@@ -14,17 +14,6 @@
 .success-background {
     -fx-background-color: rgba(102, 187, 106, 0.5);
     -fx-background-radius: 8;
-}
-
-/* TOGGLE BUTTON */
-.tg-servizio {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-background-radius: 4;
-}
-
-.tg-servizio: selected {
-    -fx-background-color: rgba(15, 15, 15, 0.2);
-    -fx-background-radius: 4;
 }
 
 /* LABEL */
