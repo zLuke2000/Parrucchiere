@@ -115,6 +115,7 @@ public class CCliente extends Controller {
     @FXML
     private void preferiti() {
         CPreferiti controller = (CPreferiti) dh.newDialog("Preferiti", "Gestione preferiti", this);
+        controller.impostaCliente(c);
         dh.display();
     }
 
@@ -128,7 +129,6 @@ public class CCliente extends Controller {
             hb_serviziPreferiti.getChildren().clear();
             for(Servizio s: res.getList(Servizio.class)) {
                 Label l = new Label(s.getNome());
-                l.getStyleClass().add("l-servizio");
                 hb_serviziPreferiti.getChildren().add(l);
             }
         }

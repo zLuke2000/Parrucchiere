@@ -5,6 +5,7 @@ import it.centoreluca.controller.clienti.CCliente;
 import it.centoreluca.database.Database;
 import it.centoreluca.models.Cliente;
 import it.centoreluca.models.Servizio;
+import it.centoreluca.util.ControlloParametri;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -21,6 +22,7 @@ public class CPreferiti extends Controller {
     @FXML private VBox vb_servizi;
 
     private final Database db = Database.getInstance();
+    private final ControlloParametri cp = ControlloParametri.getInstance();
     private final HashMap<ToggleButton, Servizio> preferitiTG = new HashMap<>();
     private Stage stage;
     private CCliente parent;
@@ -50,7 +52,7 @@ public class CPreferiti extends Controller {
 
     public void impostaCliente(Cliente c) {
         this.c = c;
-        l_titolo.setText("Servizi preferiti - " + c.getNome());
+        l_titolo.setText("Preferiti - " + cp.toTitleCase(c.getNome()) + " " + cp.toTitleCase(c.getCognome()));
         List<Integer> serviziCliente = db.leggiIdServPref(c.getId()).getList(Integer.class);
         preferitiTG.forEach((tg, s) -> {
             if(serviziCliente.contains(s.getId())) {

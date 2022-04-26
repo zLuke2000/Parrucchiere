@@ -80,5 +80,6 @@
    <stylesheets>
       <URL value="@../../style/style.css" />
       <URL value="@../../style/dialog/dialog.css" />
+      <URL value="@../../style/icone.css" />
    </stylesheets>
 </AnchorPane>

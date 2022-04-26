@@ -19,14 +19,14 @@
             </font>
         </Label>
     </HBox>
-    <StackPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="400.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="8.0">
+    <StackPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="8.0">
         <Label fx:id="l_note" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" wrapText="true" />
         <TextArea fx:id="ta_note" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" />
     </StackPane>
-    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="571.0" AnchorPane.topAnchor="0.0">
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="110.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -87,7 +87,9 @@
         <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Data di nascita:" />
         <Label fx:id="l_dataNascita" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" />
     </HBox>
-   <HBox fx:id="hb_serviziPreferiti" spacing="8.0" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="36.0" />
+    <HBox fx:id="hb_serviziPreferiti" spacing="8.0" stylesheets="@../../../style/chips.css" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="36.0">
+        <Label text="Label"/>
+    </HBox>
    <stylesheets>
       <URL value="@../../../style/style.css" />
       <URL value="@../../../style/icone.css" />
