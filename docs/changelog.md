@@ -14,3 +14,4 @@ Questo formato è basato su [Keep a Changelog](https://keepachangelog.com/en/1.0
 - Calendario giornaliero (agenda)
 - Predisposizione menu per impostazioni e visualizzazione grafici
 - Supporto visualizzazione notifica per compleanno
+- Funzionalità di backup automatico giornaliero su excel
