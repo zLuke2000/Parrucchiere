@@ -15,3 +15,7 @@ Questo formato è basato su [Keep a Changelog](https://keepachangelog.com/en/1.0
 - Predisposizione menu per impostazioni e visualizzazione grafici
 - Supporto visualizzazione notifica per compleanno
 - Funzionalità di backup automatico giornaliero su excel
+
+## [1.0.1] - 2022-07-03
+### Aggiunte
+- Schermata di avviso: mancata connessione al database

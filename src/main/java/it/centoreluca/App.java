@@ -16,8 +16,6 @@ import java.util.Objects;
 
 public class App extends Application {
 
-    private static final ExcelHelper eh = ExcelHelper.getInstance();
-
     public static Stage stage;
     private Double xOffset;
     private Double yOffset;
@@ -68,7 +66,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        eh.backupXLSX();
         launch(args);
+        ExcelHelper eh = ExcelHelper.getInstance();
+        eh.backupXLSX();
     }
 }

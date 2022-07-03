@@ -1,5 +1,9 @@
 package it.centoreluca.database;
 
+import it.centoreluca.controller.dialog.CDialog;
+import it.centoreluca.util.DialogHelper;
+import javafx.application.Platform;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +18,7 @@ public class DBHelper {
     private final static String username = "cassa";
     private final static String password = "hvM7aM6VHLu7ukrjvBNDWaWxFt2fA7C3";
 
+    private final DialogHelper dh = DialogHelper.getInstance();
     private static Connection connection = null;
 
     public DBHelper() {}
@@ -23,8 +28,13 @@ public class DBHelper {
             try {
                 connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
-                System.err.println("[DBHelper] credenziali database errate o database non corretto");
-                e.printStackTrace();
+                CDialog alert = (CDialog) dh.newDialog("Generico", "ATTENZIONE", null);
+                alert.impostaTipo(CDialog.Tipo.ERRORE);
+                alert.impostaTitolo("ERRORE DATABASE");
+                alert.impostaDescrizione("Impossible stabilire una connessione con il database\n\n" + e);
+                dh.display();
+                Platform.exit();
+                System.exit(2);
             }
         }
         return connection;
