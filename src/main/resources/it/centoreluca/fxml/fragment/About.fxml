@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<?import java.net.URL?>
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="default-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.About">
+    <stylesheets>
+        <URL value="@../../style/calendario.css" />
+        <URL value="@../../style/style.css" />
+    </stylesheets>
+    <Label text="Parrucchiere" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="64.0">
+        <font>
+          <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+    <HBox spacing="4.0" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="133.0">
+      <FontIcon iconLiteral="mdi2a-account-tie" iconSize="24" />
+        <Label text="Autore:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <Label fx:id="l_autore" text="template">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+    </HBox>
+    <HBox spacing="4.0" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="168.0">
+      <FontIcon iconLiteral="mdi2a-adjust" iconSize="24" />
+        <Label text="Versione corrente:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <Label fx:id="l_versioneCorrente" text="template">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+    </HBox>
+    <HBox spacing="4.0" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="203.0">
+      <FontIcon iconLiteral="mdi2a-adjust" iconSize="24" />
+        <Label text="Ultima versione:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <Label fx:id="l_ultimaVersione" text="template">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="l_linkNuovaVersione" disable="true" onMouseClicked="#apriDownload" text="Cliccare qui per scaricare la versione aggiornata" textFill="#0645ad" underline="true" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+    </HBox>
+    <HBox spacing="4.0" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="238.0">
+      <FontIcon iconLiteral="mdi2g-github" iconSize="24" />
+        <Label text="Pagina GitHub:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="l_gitHub" onMouseClicked="#apriGitHub" text="template" textFill="#0645ad" underline="true">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </HBox>
+    <HBox spacing="4.0" AnchorPane.leftAnchor="64.0" AnchorPane.topAnchor="308.0">
+         <FontIcon iconLiteral="mdi2d-database-check" iconSize="24" />
+        <Label text="Connessione al database:">
+           <font>
+               <Font size="18.0" />
+           </font>
+        </Label>
+        <Label fx:id="l_connessioneDatabase" text="template">
+           <font>
+               <Font name="System Bold" size="18.0" />
+           </font>
+        </Label>
+    </HBox>
+</AnchorPane>

@@ -25,6 +25,7 @@ public class CAvvio extends Controller {
     @FXML private Button b_menuServizi;
     @FXML private Button b_menuPersonale;
     @FXML private Button b_menuGenerico;
+    @FXML private Button b_menuAbout;
     @FXML private Label l_orologio;
     @FXML private Label l_titolo;
 
@@ -75,6 +76,9 @@ public class CAvvio extends Controller {
         } else if(ae.getSource().equals(b_menuGenerico)) {
             l_titolo.setText("MENU");
             loadDashboard("Menu");
+        } else if(ae.getSource().equals(b_menuAbout)) {
+            l_titolo.setText("ABOUT");
+            loadDashboard("About");
         }
     }
 
