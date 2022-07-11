@@ -25,7 +25,9 @@ javafx {
 
 dependencies {
     /* DATABASE*/
-    implementation 'org.postgresql:postgresql:42.3.4'
+    implementation 'org.postgresql:postgresql:42.3.6'
+    /* JSON */
+    implementation 'org.json:json:20220320'
     /* ESPORTAZIONE EXCEL */
     implementation 'org.apache.poi:poi:5.2.0'
     implementation 'org.apache.poi:poi-ooxml:5.2.0'
