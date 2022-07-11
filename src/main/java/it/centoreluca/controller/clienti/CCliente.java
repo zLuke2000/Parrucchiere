@@ -139,7 +139,7 @@ public class CCliente extends Controller {
         boolean stato;
         // Copio campi e salvataggio
         if(fi_edit.isVisible()) {
-            //TODO copiare campo data di nascita
+            //todo: copiare campo data di nascita
             copiaCampi(l_telefonoCellulare, tf_telefonoCellulare);
             copiaCampi(l_telefonoFisso, tf_telefonoFisso);
             copiaCampi(l_email, tf_email);

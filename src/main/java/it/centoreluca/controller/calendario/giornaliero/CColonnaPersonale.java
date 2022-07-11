@@ -27,7 +27,7 @@ public class CColonnaPersonale extends Controller {
     @FXML private GridPane gp_agenda;
 
     private final Database db = Database.getInstance();
-    private final Orario ora = Orario.getInstance();
+    private final Orario orarioHelper = Orario.getInstance();
     private final DialogHelper dh = DialogHelper.getInstance();
     private final ControlloParametri cp = ControlloParametri.getInstance();
     private final List<AnchorPane> listaAppuntamenti = new ArrayList<>();
@@ -64,7 +64,7 @@ public class CColonnaPersonale extends Controller {
                 try {
                     AnchorPane ap = fxmlLoader.load();
                     listaAppuntamenti.add(ap);
-                    //TODO evitare sovrapposizioni
+                    //todo: evitare sovrapposizioni
                     int colonna = 1;
 
                     Calendar orario = new GregorianCalendar();
@@ -86,7 +86,7 @@ public class CColonnaPersonale extends Controller {
                     e.printStackTrace();
                 }
                 /* Aggiungo l'appuntamento al Thread dedicato al controllo dell'orario */
-                ora.aggiungiAppuntamento(a);
+                orarioHelper.aggiungiAppuntamento(a);
             }
         }
     }

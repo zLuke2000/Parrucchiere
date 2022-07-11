@@ -25,6 +25,14 @@ public class Database {
         return instance;
     }
 
+    public DatabaseMetaData getConnectionMetadata() {
+        try {
+            return conn.getMetaData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*
      * SEZIONE APPUNTAMENTI
      */

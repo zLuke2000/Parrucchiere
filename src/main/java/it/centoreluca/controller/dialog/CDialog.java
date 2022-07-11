@@ -18,16 +18,10 @@ public class CDialog extends Controller {
     @FXML private Button b_d_close;
 
     private Stage stage;
-    private Controller parent;
 
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
-    }
-
-    @Override
-    public void setParent(Controller parent) {
-        this.parent = parent;
     }
 
     public void impostaTipo(Tipo t) {
