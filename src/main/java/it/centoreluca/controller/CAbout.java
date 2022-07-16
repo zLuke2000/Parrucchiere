@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class About {
+public class CAbout {
     public Label l_autore;
     public Label l_versioneCorrente;
     public Label l_gitHub;
@@ -41,13 +41,13 @@ public class About {
                 tags.add(ja.query("/" + i + "/name").toString());
             }
             latestVersion = tags.peek();
+            l_ultimaVersione.setText(latestVersion);
+            if(!currentVersion.equals(latestVersion)) {
+                l_linkNuovaVersione.setDisable(false);
+                l_linkNuovaVersione.setVisible(true);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        l_ultimaVersione.setText(latestVersion);
-        if(!currentVersion.equals(latestVersion)) {
-            l_linkNuovaVersione.setDisable(false);
-            l_linkNuovaVersione.setVisible(true);
+            l_ultimaVersione.setText("connessione internet non presente");
         }
 
         DatabaseMetaData dbmd = db.getConnectionMetadata();
@@ -68,7 +68,7 @@ public class About {
     }
 
     @FXML
-    public void apriDownload() {
+    private void apriDownload() {
         try {
             Desktop.getDesktop().browse(new URL(gitHub + "/releases/tag/" + latestVersion).toURI());
         } catch (IOException | URISyntaxException e) {
