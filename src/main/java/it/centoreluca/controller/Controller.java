@@ -38,10 +38,6 @@ public abstract class Controller {
         }
     }
 
-    public void copiaCampi(Label l, TextInputControl tic) {
-        tic.setText(l.getText());
-    }
-
     public boolean cambiamenti(Label l, TextInputControl tic) {
         if(l.getText() != null) {
             return !l.getText().trim().equals(tic.getText().trim());
@@ -49,4 +45,13 @@ public abstract class Controller {
             return tic.getText().trim().length() > 0;
         }
     }
+
+    public void copiaCampi(Label l, TextInputControl tic) {
+        if(l.getText() == null) {
+            tic.setText("");
+        } else {
+            tic.setText(l.getText());
+        }
+    }
+
 }

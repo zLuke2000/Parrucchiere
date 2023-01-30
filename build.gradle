@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'it.centoreluca'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -25,9 +25,9 @@ javafx {
 
 dependencies {
     /* DATABASE*/
-    implementation 'org.postgresql:postgresql:42.3.6'
+    implementation 'org.postgresql:postgresql:42.5.1'
     /* JSON */
-    implementation 'org.json:json:20220320'
+    implementation 'org.json:json:20220924'
     /* ESPORTAZIONE EXCEL */
     implementation 'org.apache.poi:poi:5.2.0'
     implementation 'org.apache.poi:poi-ooxml:5.2.0'
@@ -45,7 +45,7 @@ launch4j {
     headerType = 'console'
     companyName = 'centore luca'
     copyright = 'centore luca'
-    version = '1.0.0.1'
+    version = '1.0.1'
     icon = "${projectDir}/src/main/resources/it/centoreluca/icon/hairdresser.ico"
     jarTask = project.tasks.shadowJar
 }

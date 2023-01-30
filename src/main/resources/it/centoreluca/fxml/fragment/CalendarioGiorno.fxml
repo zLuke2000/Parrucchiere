@@ -16,12 +16,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="l_compleanno" styleClass="compleanno-text" text="template" visible="false" AnchorPane.leftAnchor="36.0">
+      <Label fx:id="l_compleanno" alignment="CENTER" styleClass="compleanno-text" text="template" visible="false" AnchorPane.leftAnchor="36.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <FontIcon fx:id="fi_compleanno" iconLiteral="mdi2c-cake-variant" iconSize="30" styleClass="compleanno-icon" visible="false" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0" />
+      <FontIcon fx:id="fi_compleanno" iconLiteral="mdi2c-cake-variant" iconSize="24" styleClass="compleanno-icon" visible="false" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="3.0" />
    </AnchorPane>
    <HBox fx:id="hb_container" alignment="CENTER_LEFT" spacing="32.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
 </AnchorPane>

@@ -30,7 +30,7 @@ public class CAbout {
     @FXML
     private void initialize() {
         l_autore.setText("Centore Luca");
-        String currentVersion = "v1.0.0";
+        String currentVersion = "v1.0.1";
         l_versioneCorrente.setText(currentVersion);
         l_gitHub.setText(gitHub);
 

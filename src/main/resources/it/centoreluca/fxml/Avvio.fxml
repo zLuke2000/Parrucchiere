@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="default-background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.CAvvio">
+<AnchorPane fx:id="ap_root" prefHeight="720.0" prefWidth="1280.0" styleClass="default-radius" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.CAvvio">
    <HBox alignment="CENTER" styleClass="bordo-menu" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Button maxWidth="-Infinity" minWidth="-Infinity" onAction="#riduciApp" prefWidth="50.0" styleClass="riduci-a-icona">
          <graphic>
@@ -59,13 +59,13 @@
             <FontIcon iconLiteral="mdi2c-card-account-details-star-outline" iconSize="32" />
          </graphic>
       </Button>
-      <Button fx:id="b_menuGenerico" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onAction="#selettoreMenu" prefHeight="75.0" styleClass="pulsante-menu" text="Menu">
+      <Button fx:id="b_menuImpostazioni" graphicTextGap="8.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onAction="#selettoreMenu" prefHeight="75.0" styleClass="pulsante-menu" text="Impostazioni">
          <graphic>
-            <FontIcon iconLiteral="mdi2m-menu" iconSize="32" />
+            <FontIcon iconLiteral="mdi2c-cog" iconSize="32" />
          </graphic>
       </Button>
    </VBox>
-   <Button fx:id="b_menuAbout" graphicTextGap="8.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#selettoreMenu" styleClass="pulsante-menu" text="About" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="16.0" />
+   <Button fx:id="b_menuAbout" graphicTextGap="8.0" onAction="#selettoreMenu" prefWidth="135.0" styleClass="pulsante-menu" text="About" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0" />
    <AnchorPane fx:id="p_container" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="45.0" />
    <Label fx:id="l_orologio" maxHeight="1.7976931348623157E308" text="template" textAlignment="CENTER" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="-5.0">
       <font>

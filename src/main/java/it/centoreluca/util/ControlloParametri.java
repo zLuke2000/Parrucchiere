@@ -61,6 +61,7 @@ public class ControlloParametri {
     }
 
     public boolean numeri(TextInputControl tic, int minChar, int maxChar) {
+        System.err.println(tic.getText());
         if(minChar == maxChar) {
             rPattern = Pattern.compile("[\\d]{" + minChar + "}");
         } else {
@@ -160,4 +161,13 @@ public class ControlloParametri {
             }
         }
     }
+
+    public boolean rimosso(TextInputControl tic) {
+        if(tic.getText().trim().isEmpty()) {
+            cssHelper.toInfo(tic, "Il campo è vuoto");
+            return true;
+        }
+        return false;
+    }
+
 }

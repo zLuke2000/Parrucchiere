@@ -2,6 +2,7 @@ package it.centoreluca.controller.clienti;
 
 import it.centoreluca.controller.Controller;
 import it.centoreluca.controller.dialog.CDialog;
+import it.centoreluca.controller.dialog.CModificaCliente;
 import it.centoreluca.controller.dialog.CPreferiti;
 import it.centoreluca.database.Database;
 import it.centoreluca.enumerator.Mesi;
@@ -80,21 +81,29 @@ public class CCliente extends Controller {
             data.setTimeInMillis(c.getDataNascita().getTime());
             l_dataNascita.setText(data.get(Calendar.DAY_OF_MONTH) + " " + Mesi.values()[data.get(Calendar.MONTH)] + " " + data.get(Calendar.YEAR));
         } else {
-            l_dataNascita.setText("");
+            l_dataNascita.setText("--");
         }
+
         // Imposto il numero di telefono cellulare
-        if(c.getNumeroCellulare() != null) {
+        if(!c.getNumeroCellulare().isEmpty()) {
             l_telefonoCellulare.setText(c.getNumeroCellulare().substring(0, 3) + " " + c.getNumeroCellulare().substring(3));
         } else {
-            l_telefonoCellulare.setText("");
+            l_telefonoCellulare.setText("--");
         }
-        //Imposto il numero di telefono fisso
-        if(c.getNumeroFisso() != null) {
+
+        // Imposto il numero di telefono fisso
+        if(!c.getNumeroFisso().isEmpty()) {
             l_telefonoFisso.setText(c.getNumeroFisso().substring(0, 4) + " " + c.getNumeroFisso().substring(4));
         } else {
-            l_telefonoFisso.setText("");
+            l_telefonoFisso.setText("--");
         }
-        l_email.setText(c.getEmail());
+
+        // Imposto e-mail
+        if(!c.getEmail().isEmpty()) {
+            l_email.setText(c.getEmail());
+        } else {
+            l_email.setText("--");
+        }
         l_note.setText(c.getNote());
         tf_colore.setText(c.getColore());
 
@@ -136,6 +145,11 @@ public class CCliente extends Controller {
 
     @FXML
     private void modifica() {
+        CModificaCliente controller = (CModificaCliente) dh.newDialog("ModificaCliente", "Modifica cliente", this);
+        controller.impostaCliente(c);
+        dh.display();
+
+        /*
         boolean stato;
         // Copio campi e salvataggio
         if(fi_edit.isVisible()) {
@@ -147,24 +161,24 @@ public class CCliente extends Controller {
             stato = true;
         } else {
             boolean modifiche = false;
-            if(cambiamenti(l_telefonoCellulare, tf_telefonoCellulare) & cp.numeri(tf_telefonoCellulare, 10, 16)) {
+            if(cp.rimosso(tf_telefonoCellulare) || cp.numeri(tf_telefonoCellulare, 10, 16)) {
                 c.setNumeroCellulare(tf_telefonoCellulare.getText().trim());
                 modifiche = true;
             }
-            if(cambiamenti(l_telefonoFisso, tf_telefonoFisso) & cp.numeri(tf_telefonoFisso, 10, 16)) {
-                c.setNumeroFisso(tf_telefonoCellulare.getText().trim());
+            if(cp.rimosso(tf_telefonoFisso) || cp.numeri(tf_telefonoFisso, 10, 16)) {
+                c.setNumeroFisso(tf_telefonoFisso.getText().trim());
                 modifiche = true;
             }
-            if(cambiamenti(l_email, tf_email) & cp.email(tf_email)) {
-                c.setEmail(tf_telefonoCellulare.getText().trim());
+            if(cp.rimosso(tf_email) || cp.email(tf_email)) {
+                c.setEmail(tf_email.getText().trim());
                 modifiche = true;
             }
-            if(cambiamenti(l_note, ta_note) & cp.testoSempliceConNumeri(ta_note, 0, 512)) {
+            if(cp.rimosso(ta_note) || cp.testoSempliceConNumeri(ta_note, 0, 512)) {
                 c.setNote(ta_note.getText().trim());
                 modifiche = true;
             }
 
-            if(modifiche & db.modificaCampiCliente(c).getResult()) {
+            if(modifiche & ) {
                 l_telefonoCellulare.setText(c.getNumeroCellulare());
                 l_telefonoFisso.setText(c.getNumeroFisso());
                 l_email.setText(c.getEmail());
@@ -190,6 +204,7 @@ public class CCliente extends Controller {
             fi_edit.setVisible(!fi_edit.isVisible());
             fi_save.setVisible(!fi_save.isVisible());
         }
+        */
     }
 
     @FXML
@@ -218,4 +233,7 @@ public class CCliente extends Controller {
         }
     }
 
+    public void refresh() {
+        impostaContenuto(this.parent, this.c, this.n);
+    }
 }

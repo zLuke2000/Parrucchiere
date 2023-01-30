@@ -1,7 +1,9 @@
 package it.centoreluca.controller;
 
 import it.centoreluca.App;
+import it.centoreluca.enumerator.Setting;
 import it.centoreluca.thread.Orario;
+import it.centoreluca.util.Impostazioni;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import java.io.IOException;
 
 public class CAvvio extends Controller {
 
+    @FXML private AnchorPane ap_root;
     @FXML private AnchorPane p_container;
     @FXML private FontIcon fi_schermoInteroOn;
     @FXML private FontIcon fi_schermoInteroOff;
@@ -24,7 +27,7 @@ public class CAvvio extends Controller {
     @FXML private Button b_menuClienti;
     @FXML private Button b_menuServizi;
     @FXML private Button b_menuPersonale;
-    @FXML private Button b_menuGenerico;
+    @FXML private Button b_menuImpostazioni;
     @FXML private Button b_menuAbout;
     @FXML private Label l_orologio;
     @FXML private Label l_titolo;
@@ -33,22 +36,31 @@ public class CAvvio extends Controller {
     private final Double defaultWidth = stage.getWidth();
     private final Double defaultHeight = stage.getHeight();
     private final Orario ora = Orario.getInstance();
+    private final Impostazioni imp = Impostazioni.getInstance();
 
     @FXML
     private void initialize() {
         loadDashboard("CalendarioGiorno");
         l_titolo.setText("AGENDA");
         ora.impostaEtichetta(l_orologio);
+        ap_root.setStyle("-fx-background-color: " + Impostazioni.currentSetting.get(Setting.BACKGROUND));
+        imp.impostaAPRoot(ap_root);
     }
 
     @FXML
     private void schermoInteroApp() {
         if(fi_schermoInteroOn.isVisible()) {
             stage.setMaximized(true);
+            if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                stage.setFullScreen(true);
+            }
             fi_schermoInteroOn.setVisible(false);
             fi_schermoInteroOff.setVisible(true);
         } else {
             stage.setMaximized(false);
+            if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                stage.setFullScreen(false);
+            }
             stage.setWidth(defaultWidth);
             stage.setHeight(defaultHeight);
             fi_schermoInteroOn.setVisible(true);
@@ -73,12 +85,12 @@ public class CAvvio extends Controller {
         } else if(ae.getSource().equals(b_menuPersonale)) {
             loadDashboard("VistaPersonale");
             l_titolo.setText("PERSONALE");
-        } else if(ae.getSource().equals(b_menuGenerico)) {
-            l_titolo.setText("MENU");
-            loadDashboard("Menu");
+        } else if(ae.getSource().equals(b_menuImpostazioni)) {
+            loadDashboard("Impostazioni");
+            l_titolo.setText("IMPOSTAZIONI");
         } else if(ae.getSource().equals(b_menuAbout)) {
-            l_titolo.setText("ABOUT");
             loadDashboard("About");
+            l_titolo.setText("ABOUT");
         }
     }
 
@@ -106,6 +118,7 @@ public class CAvvio extends Controller {
     private void chiudiApp() {
         stage.close();
         Platform.exit();
+        System.exit(0);
     }
 
 }

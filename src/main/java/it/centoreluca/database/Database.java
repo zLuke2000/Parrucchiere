@@ -1,5 +1,6 @@
 package it.centoreluca.database;
 
+import it.centoreluca.enumerator.Setting;
 import it.centoreluca.models.*;
 
 import java.sql.*;
@@ -293,7 +294,7 @@ public class Database {
         res = new Result(false, Result.Operation.MODIFICA_CAMPI_CLIENTE);
         try {
             pstmt = conn.prepareStatement("UPDATE public.clienti " +
-                    "SET data_nascita = ?, n_cellulare = ?, n = ?, email = ?, note = ? " +
+                    "SET data_nascita = ?, n_cellulare = ?, n_fisso = ?, email = ?, note = ? " +
                     "WHERE id = ?");
             pstmt.setDate(1, c.getDataNascita());
             pstmt.setString(2, c.getNumeroCellulare());
@@ -328,7 +329,7 @@ public class Database {
     }
 
     public synchronized Result controllaCompleanno(Calendar data) {
-        Result tRes = new Result(false, Result.Operation.CONTROLLO_COMPLEANNO);
+        Result res = new Result(false, Result.Operation.CONTROLLO_COMPLEANNO);
         try {
             pstmt = conn.prepareStatement("SELECT nome, cognome " +
                     "FROM clienti " +
@@ -337,15 +338,16 @@ public class Database {
             pstmt.setInt(2, data.get(Calendar.MONTH)+1);
             rs = pstmt.executeQuery();
 
-            tRes.setList(new ArrayList<>());
+            List<Object> listaCompleanni = new ArrayList<>();
             while(rs.next()) {
-                tRes.getList(Cliente.class).add(new Cliente(rs.getString("nome"), rs.getString("cognome")));
-                tRes.setResult(true);
+                listaCompleanni.add(new Cliente(rs.getString("nome"), rs.getString("cognome")));
+                res.setResult(true);
             }
+            res.setList(listaCompleanni);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return tRes;
+        return res;
     }
 
     /*
@@ -409,10 +411,11 @@ public class Database {
         res = new Result(false, Result.Operation.MODIFICA_CAMPI_PERSONALE);
         try {
             pstmt = conn.prepareStatement("UPDATE public.personale " +
-                    "SET note = ? " +
+                    "SET note = ?, username = ? " +
                     "WHERE id = ?");
             pstmt.setString(1, p.getNote());
-            pstmt.setInt(2, p.getId());
+            pstmt.setString(2, p.getUsername());
+            pstmt.setInt(3, p.getId());
             pstmt.executeUpdate();
             res.setResult(true);
         } catch (SQLException e) {
@@ -740,4 +743,41 @@ public class Database {
         return null;
     }
 
+    /*
+     * SEZIONE IMPOSTAZIONI
+     */
+
+    public boolean leggiImpostazioni(HashMap<Setting, String> currentSetting, HashMap<Setting, String> defaultSetting) {
+        try {
+            pstmt = conn.prepareStatement("SELECT * " +
+                    "FROM util.impostazioni ");
+            rs = pstmt.executeQuery();
+
+            currentSetting.clear();
+            defaultSetting.clear();
+            while(rs.next()) {
+                currentSetting.put(Setting.valueOf(rs.getString("nome")), rs.getString("current"));
+                defaultSetting.put(Setting.valueOf(rs.getString("nome")), rs.getString("default"));
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean aggiornaImpostazione(Setting nome, String value) {
+        try {
+            pstmt = conn.prepareStatement("UPDATE util.impostazioni " +
+                    "SET current = ? " +
+                    "WHERE nome = ? ");
+            pstmt.setString(1, value);
+            pstmt.setString(2, String.valueOf(nome));
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

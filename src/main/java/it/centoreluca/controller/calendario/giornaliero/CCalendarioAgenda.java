@@ -39,11 +39,12 @@ public class CCalendarioAgenda extends Controller {
         // Controllo compleanni in un thread separato
         new Thread(() -> {
             Result res = db.controllaCompleanno(data);
-            StringBuilder testo = new StringBuilder("COMPLEANNO:");
+            StringBuilder testo = new StringBuilder("COMPLEANNO: ");
             if(res.getResult()) {
                 for(Cliente c: res.getList(Cliente.class)) {
-                    testo.append(" ").append(c.getCognome()).append(" ").append(c.getNome());
+                    testo.append(c).append(" - ");
                 }
+                testo.delete(testo.length()-3, testo.length());
                 l_compleanno.setVisible(true);
                 fi_compleanno.setVisible(true);
                 l_compleanno.setText(testo.toString());

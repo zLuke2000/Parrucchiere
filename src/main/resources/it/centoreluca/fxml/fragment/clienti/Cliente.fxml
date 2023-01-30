@@ -19,10 +19,7 @@
             </font>
         </Label>
     </HBox>
-    <StackPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="8.0">
-        <Label fx:id="l_note" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" wrapText="true" />
-        <TextArea fx:id="ta_note" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" />
-    </StackPane>
+     <Label fx:id="l_note" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="350.0" text="template" wrapText="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="8.0" />
     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="529.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="110.0" />
@@ -48,18 +45,9 @@
                <Insets right="8.0" />
            </padding>
         </Label>
-        <StackPane GridPane.columnIndex="1">
-            <Label fx:id="l_telefonoCellulare" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_telefonoCellulare" visible="false" />
-        </StackPane>
-        <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <Label fx:id="l_telefonoFisso" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_telefonoFisso" visible="false" />
-        </StackPane>
-        <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <Label fx:id="l_email" maxWidth="1.7976931348623157E308" text="template" />
-            <TextField fx:id="tf_email" visible="false" />
-        </StackPane>
+         <Label fx:id="l_telefonoCellulare" maxWidth="1.7976931348623157E308" text="template" GridPane.columnIndex="1" />
+         <Label fx:id="l_telefonoFisso" maxWidth="1.7976931348623157E308" text="template" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <Label fx:id="l_email" maxWidth="1.7976931348623157E308" text="template" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     </GridPane>
     <HBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0">
         <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="Colore:" />
@@ -67,10 +55,7 @@
     </HBox>
    <Button contentDisplay="TOP" onAction="#modifica" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="29.0">
       <graphic>
-          <StackPane>
-              <FontIcon fx:id="fi_edit" iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-gialla" />
-              <FontIcon fx:id="fi_save" iconLiteral="mdi2c-content-save-outline" iconSize="25" styleClass="icona-blu" visible="false" />
-          </StackPane>
+           <FontIcon fx:id="fi_edit" iconLiteral="mdi2s-square-edit-outline" iconSize="25" styleClass="icona-gialla" />
       </graphic>
    </Button>
    <Button contentDisplay="TOP" onMouseClicked="#elimina" AnchorPane.bottomAnchor="29.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="29.0">
@@ -88,7 +73,7 @@
         <Label fx:id="l_dataNascita" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="template" />
     </HBox>
     <HBox fx:id="hb_serviziPreferiti" spacing="8.0" stylesheets="@../../../style/chips.css" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="36.0">
-        <Label text="Label"/>
+        <Label text="Label" />
     </HBox>
    <stylesheets>
       <URL value="@../../../style/style.css" />

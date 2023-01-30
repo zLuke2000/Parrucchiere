@@ -35,6 +35,17 @@ public class CssHelper {
         c.getStyleClass().add("field-valid");
     }
 
+    public void toInfo(Control c, String testoTooltip) {
+        toDefault(c);
+        c.getStyleClass().add("field-info");
+        if(testoTooltip != null) {
+            Tooltip t = new Tooltip(testoTooltip);
+            t.getStyleClass().add("tooltip-info");
+            t.setShowDelay(Duration.ZERO);
+            c.setTooltip(t);
+        }
+    }
+
     public void toDefault(Control c) {
         c.getStyleClass().remove("field-error");
         c.getStyleClass().remove("field-valid");
@@ -50,4 +61,5 @@ public class CssHelper {
             case DEFAULT -> ap_root.getStyleClass().add("opaco-20");
         }
     }
+
 }

@@ -120,6 +120,6 @@ public class Cliente {
     }
 
     public String[] backupRow() {
-        return new String[]{String.valueOf(id), nome, cognome, dataNascita.toString(), numeroCellulare, numeroFisso, email, colore, note};
+        return new String[]{String.valueOf(id), nome, cognome, String.valueOf(dataNascita), numeroCellulare, numeroFisso, email, colore, note};
     }
 }

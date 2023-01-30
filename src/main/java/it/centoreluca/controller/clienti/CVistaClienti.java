@@ -114,7 +114,7 @@ public class CVistaClienti extends Controller {
 
     @FXML
     public void realtimeCheck(KeyEvent ke) {
-        if(ke.getSource().equals(tf_ricerca)) {
+        if(ke.getSource().equals(tf_ricerca) | ke.getSource().equals(this)) {
             if(tf_ricerca.getText().trim().length() >= 2) {
                 // Rimuovo tutti i clienti nel VBOX
                 vb_container.getChildren().clear();
@@ -148,7 +148,5 @@ public class CVistaClienti extends Controller {
             l_registrazioneOk.setVisible(false);
         }
     }
-
-
 
 }

@@ -1,6 +1,7 @@
 package it.centoreluca;
 
 import it.centoreluca.database.ExcelHelper;
+import it.centoreluca.util.Impostazioni;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -66,8 +67,9 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        Impostazioni.getInstance();
         ExcelHelper eh = ExcelHelper.getInstance();
         eh.backupXLSX();
+        launch(args);
     }
 }
