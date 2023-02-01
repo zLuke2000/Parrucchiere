@@ -38,7 +38,7 @@
          <TextField fx:id="tf_dataA" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="Anno" />
       </HBox>
    </AnchorPane>
-   <Label fx:id="l_registrazioneOk" alignment="CENTER" prefHeight="20.0" prefWidth="400.0" styleClass="opaco-20" text="template" textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="458.0">
+   <Label fx:id="l_registrazioneOk" alignment="CENTER" prefHeight="20.0" prefWidth="200.0" styleClass="opaco-20" text="template" textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="458.0">
       <font>
          <Font size="18.0" />
       </font>
