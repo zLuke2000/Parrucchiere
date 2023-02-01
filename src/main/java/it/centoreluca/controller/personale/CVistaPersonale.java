@@ -80,18 +80,18 @@ public class CVistaPersonale extends Controller {
 
             if(check) {
                 if (db.registraPersonale(d).getResult()) {
-                    l_registrazioneOk.setText("Cliente registrato con successo");
+                    l_registrazioneOk.setText("Personale registrato");
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
                     caricaFragment();
                     reimpostaCampi(true, true, tf_nome, tf_cognome, tf_username, ta_note);
                 } else {
-                    l_registrazioneOk.setText("Errore durante la registrazione");
+                    l_registrazioneOk.setText("Errore registrazione");
                     css.toError(l_registrazioneOk, null);
                     l_registrazioneOk.setVisible(true);
                 }
             } else {
-                l_registrazioneOk.setText("Errore compilazione campi");
+                l_registrazioneOk.setText("Errore compilazione");
                 css.toError(l_registrazioneOk, null);
                 l_registrazioneOk.setVisible(true);
             }

@@ -95,17 +95,17 @@ public class CVistaClienti extends Controller {
             if(check) {
                 Result res = db.registraCliente(c);
                 if (res.getResult()) {
-                    l_registrazioneOk.setText("Cliente registrato con successo");
+                    l_registrazioneOk.setText("Cliente registrato");
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
                     reimpostaCampi(true, true, tf_nome, tf_cognome, tf_dataG, tf_dataM, tf_dataA, tf_telefonoCellulare, tf_telefonoFisso, tf_email, ta_note);
                 } else {
-                    l_registrazioneOk.setText("Errore durante la registrazione");
+                    l_registrazioneOk.setText("Errore registrazione");
                     css.toError(l_registrazioneOk, null);
                     l_registrazioneOk.setVisible(true);
                 }
             } else {
-                l_registrazioneOk.setText("Errore compilazione campi");
+                l_registrazioneOk.setText("Errore compilazione");
                 css.toError(l_registrazioneOk, null);
                 l_registrazioneOk.setVisible(true);
             }

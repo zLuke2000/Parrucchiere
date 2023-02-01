@@ -73,17 +73,17 @@ public class CVistaServizi extends Controller {
 
             if(check) {
                 if (db.registraServizio(s).getResult()) {
-                    l_registrazioneOk.setText("Servizio registrato con successo");
+                    l_registrazioneOk.setText("Servizio registrato");
                     css.toValid(l_registrazioneOk);
                     l_registrazioneOk.setVisible(true);
                     reimpostaCampi(true, true, tf_nome, tf_ore, tf_minuti, ta_note);
                 } else {
-                    l_registrazioneOk.setText("Errore durante la registrazione");
+                    l_registrazioneOk.setText("Errore registrazione");
                     css.toError(l_registrazioneOk, null);
                     l_registrazioneOk.setVisible(true);
                 }
             } else {
-                l_registrazioneOk.setText("Errore compilazione campi");
+                l_registrazioneOk.setText("Errore compilazione");
                 css.toError(l_registrazioneOk, null);
                 l_registrazioneOk.setVisible(true);
             }
