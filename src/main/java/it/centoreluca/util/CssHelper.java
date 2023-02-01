@@ -1,5 +1,6 @@
 package it.centoreluca.util;
 
+import it.centoreluca.enumerator.Setting;
 import it.centoreluca.models.Appuntamento;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tooltip;
@@ -55,9 +56,9 @@ public class CssHelper {
     public void impostaStatoAppuntamento(AnchorPane ap_root, Appuntamento.Stato stato) {
         ap_root.getStyleClass().clear();
         switch (stato) {
-            case ANNULLATO -> ap_root.getStyleClass().add("error-background");
-            case ATTENZIONE -> ap_root.getStyleClass().add("warning-background");
-            case COMPLETATO -> ap_root.getStyleClass().add("success-background");
+            case ANNULLATO -> ap_root.setStyle("-fx-background-radius: 4; -fx-background-color: " + Impostazioni.currentSetting.get(Setting.ERROR));
+            case ATTENZIONE -> ap_root.setStyle("-fx-background-radius: 4; -fx-background-color: " + Impostazioni.currentSetting.get(Setting.WARNING));
+            case COMPLETATO -> ap_root.setStyle("-fx-background-radius: 4; -fx-background-color: " + Impostazioni.currentSetting.get(Setting.SUCCESS));
             case DEFAULT -> ap_root.getStyleClass().add("opaco-20");
         }
     }

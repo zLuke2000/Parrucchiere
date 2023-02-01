@@ -5,35 +5,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="transparent" stylesheets="@../../style/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.centoreluca.controller.personale.CVistaPersonale">
-    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="bordo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="408.0" AnchorPane.topAnchor="0.0">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="bordo" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="208.0" AnchorPane.topAnchor="0.0">
         <VBox fx:id="vb_container" spacing="8.0" styleClass="transparent">
             <padding>
                 <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
             </padding>
         </VBox>
     </ScrollPane>
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" styleClass="bordo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Label alignment="CENTER" text="Nuovo personale" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0" styleClass="bordo" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" text="Nuovo personale" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <Label text="Nome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="53.0">
+        <Label text="Nome:" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="53.0">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="tf_nome" onKeyTyped="#realtimeCheck" promptText="Inserire nome" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="49.0" />
-        <Label text="Cognome:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="94.0">
+        <TextField fx:id="tf_nome" onKeyTyped="#realtimeCheck" promptText="Inserire nome" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="49.0" />
+        <Label text="Cognome:" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="94.0">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField fx:id="tf_cognome" onKeyTyped="#realtimeCheck" promptText="Inserire cognome" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="90.0" />
-        <Button onAction="#conferma" text="CONFERMA" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
-        <TextArea fx:id="ta_note" onKeyTyped="#realtimeCheck" prefHeight="50.0" promptText="Inserire note (opzionale)" wrapText="true" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
-      <TextField fx:id="tf_username" onKeyTyped="#realtimeCheck" promptText="Inserire username" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="131.0" />
-      <Label text="Username:" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="135.0">
+        <TextField fx:id="tf_cognome" onKeyTyped="#realtimeCheck" promptText="Inserire cognome" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="90.0" />
+        <Button onAction="#conferma" text="CONFERMA" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+        <TextArea fx:id="ta_note" onKeyTyped="#realtimeCheck" prefHeight="50.0" promptText="Inserire note (opzionale)" wrapText="true" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+      <TextField fx:id="tf_username" onKeyTyped="#realtimeCheck" promptText="Inserire username" AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="131.0" />
+      <Label text="Username:" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="135.0">
          <font>
             <Font size="14.0" />
          </font>

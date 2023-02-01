@@ -79,6 +79,7 @@ public class Appuntamento {
 
     public void setStato(Stato stato) {
         this.stato = stato;
+        System.out.println(stato);
         db.cambiaStatoAppuntamento(this);
         css.impostaStatoAppuntamento(this.ap, this.stato);
     }

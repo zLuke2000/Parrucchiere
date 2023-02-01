@@ -8,11 +8,11 @@ public class Cliente {
     private String nome;
     private String cognome;
     private Date dataNascita;
-    private String numeroCellulare;
-    private String numeroFisso;
-    private String email;
-    private String colore;
-    private String note;
+    private String numeroCellulare = "";
+    private String numeroFisso = "";
+    private String email = "";
+    private String colore = "";
+    private String note = "";
 
     public Cliente(String nome, String cognome) {
         this.nome = nome;
