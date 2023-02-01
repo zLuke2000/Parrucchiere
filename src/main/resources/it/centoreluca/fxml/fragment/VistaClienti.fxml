@@ -30,7 +30,7 @@
       <TextField fx:id="tf_telefonoCellulare" onKeyTyped="#realtimeCheck" promptText="Numero cellulare" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="200.0" />
       <TextField fx:id="tf_telefonoFisso" onKeyTyped="#realtimeCheck" promptText="Numero fisso" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="241.0" />
       <TextField fx:id="tf_email" onKeyTyped="#realtimeCheck" promptText="E-Mail" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="282.0" />
-      <HBox spacing="4.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="159.0">
+      <HBox spacing="2.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="159.0">
          <TextField fx:id="tf_dataG" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="Giorno" />
          <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" text="-" />
          <TextField fx:id="tf_dataM" maxHeight="-Infinity" minHeight="-Infinity" onKeyTyped="#realtimeCheck" prefHeight="25.0" promptText="Mese" />
