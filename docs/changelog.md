@@ -14,6 +14,16 @@ Tutti i cambiamneti dell'applicazione dalla sua pubblicazione saranno riportati 
 - Supporto visualizzazione notifica per compleanno
 - Funzionalità di backup automatico giornaliero su excel
 
-## [1.0.1] - 2022-07-03
+## [1.0.1] - 2023-02-01
 ### Aggiunte
 - Schermata di avviso: mancata connessione al database
+- Schermata about per vede le informazioni relative all'applicazione ed eventuale aggiornamenti
+- Schermata impostazioni per gestire i colori e predisposizioni future
+- Possibilità di modificare tutti i campi cliente
+- Supporto librerie JSON
+### Correzioni
+- Visualizzazione compleanno
+- Layout per display a bassa risoluzione
+- Layout per sistemi macOS
+### Note
+- Tutti le modifiche future saranno firmate con chiave GPG avente ID: 904D6EC3B64C308D
